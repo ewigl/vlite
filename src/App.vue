@@ -1,12 +1,15 @@
 <script setup lang="ts">
+console.log('Hello from App.vue')
 
 </script>
 
 <template>
+  <img src="@assets/logo.png" alt="000" />
+  <br />
   <router-link to="/hello">hello</router-link>
-  <br>
+  <br />
   <router-link to="/layout">layout</router-link>
-  <br>
+  <br />
   <router-link to="/dashboard">dashboard</router-link>
   <router-view />
 </template>
