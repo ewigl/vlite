@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-
-// defineProps<{ msg: string }>()
+interface Props {
+  msg?: string
+  labels?: string[]
+}
+const props = withDefaults(defineProps<Props>(), {
+  msg: 'hello',
+  labels: () => ['one', 'two']
+})
 
 const count = ref(0)
 </script>
 
 <template>
-  <!-- <h1>{{ msg }}</h1> -->
-  <p>hello world</p>
+  {{ msg }}
+  {{ labels[0] }}
+  <el-button type="primary" size="default">666</el-button>
 </template>
 
 <style scoped>

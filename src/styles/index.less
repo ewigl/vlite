@@ -1,0 +1,34 @@
+@import "./variables.less";
+@import "./element-plus.less";
+
+html {
+  height: 100%;
+  // box-sizing: border-box;
+}
+
+body {
+  margin: 0; // 去掉默认的margin
+  height: 100%; // 高度100%
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility; // 文本渲染优化
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, Arial, sans-serif; // 字体
+}
+
+.clearfix {
+  // 清除浮动
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+#app {
+  height: 100%;
+  background-color: @themeColor;
+}
