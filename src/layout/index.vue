@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useStore } from '@store/store' // 引入自定义store
 const store = useStore() // 初始化store
+import { ref } from 'vue'
+let temp = ref(1)
 </script>
 
 <template>
@@ -12,6 +14,9 @@ const store = useStore() // 初始化store
         <el-main>
           <el-button type="text" size="default" @click="store.state.count++">
             {{ store.state.count }}
+          </el-button>
+          <el-button type="primary" size="default" @click="temp++">
+            temp:{{ temp }}
           </el-button>
         </el-main>
       </el-container>
