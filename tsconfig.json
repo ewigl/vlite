@@ -9,7 +9,22 @@
     "isolatedModules": true, // 把每一个文件转译成一个单独的模块
     "types": [
       "element-plus/global"
-    ]
+    ],
+    "paths": {
+      // 根据别名配置相关路径
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@router/*": [
+        "./src/router/*"
+      ],
+      "@store/*": [
+        "./src/store/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+    }
   },
   "include": [ // 包含的文件
     "src/**/*.ts",

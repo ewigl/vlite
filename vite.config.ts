@@ -7,6 +7,9 @@ import Components from "unplugin-vue-components/vite";  //ElementPlus
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";  //ElementPlus
 
 export default defineConfig({
+  server: {
+    port: 8486,
+  },
   resolve: {
     // 对于模块的解析
     alias: {
@@ -16,6 +19,7 @@ export default defineConfig({
       "@components": resolve(__dirname, "src/components"),
       "@layout": resolve(__dirname, "src/layout"),
       "@router": resolve(__dirname, "src/router"),
+      "@store": resolve(__dirname, "src/store"),
       "@styles": resolve(__dirname, "src/styles"),
       "@utils": resolve(__dirname, "src/utils"),
       "@views": resolve(__dirname, "src/views"),
