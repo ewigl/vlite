@@ -6,30 +6,23 @@
     "strict": true, // 开启严格模式
     "jsx": "preserve", // 将 JSX 转换为普通的 JS
     "moduleResolution": "node", // 将模块解析为 Node.js 模块
-    "isolatedModules": true, // 把每一个文件转译成一个单独的模块
-    "types": [
-      "element-plus/global"
-    ],
+    // "isolatedModules": true, // 把每一个文件转译成一个单独的模块
+    "allowSyntheticDefaultImports": true, // 允许在导入语句中使用默认导入
+    "types": ["element-plus/global"],
     "paths": {
       // 根据别名配置相关路径
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@router/*": [
-        "./src/router/*"
-      ],
-      "@store/*": [
-        "./src/store/*"
-      ],
-      "@utils/*": [
-        "./src/utils/*"
-      ],
+      "@components/*": ["./src/components/*"],
+      "@router/*": ["./src/router/*"],
+      "@store/*": ["./src/store/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
-  "include": [ // 包含的文件
+  "include": [
+    // 包含的文件
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
-  ]
+  ],
+  "exclude": ["node_modules"]
 }
