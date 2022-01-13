@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Sidebar from '@layout/Sidebar/index.vue'
 import { useStore } from '@store/store' // 引入自定义store
 const store = useStore() // 初始化store
 import { ref } from 'vue'
@@ -6,43 +7,8 @@ let temp = ref(1)
 </script>
 
 <template>
-  <div class="common-layout">
-    <el-container>
-      <el-aside width="200px">Aside</el-aside>
-      <el-container>
-        <el-header>Header</el-header>
-        <el-main>
-          <el-button type="text" size="default" @click="store.state.count++">
-            {{ store.state.count }}
-          </el-button>
-          <el-button type="primary" size="default" @click="temp++">
-            temp:{{ temp }}
-          </el-button>
-        </el-main>
-      </el-container>
-    </el-container>
-  </div>
+  <Sidebar class="sidebar-container"></Sidebar>
 </template>
 
 <style scoped lang="less">
-.common-layout {
-  .el-header,
-  .el-footer {
-    background-color: #b3c0d1;
-    text-align: center;
-    line-height: 60px;
-  }
-
-  .el-aside {
-    background-color: #d3dce6;
-    text-align: center;
-    line-height: 200px;
-  }
-
-  .el-main {
-    background-color: #e9eef3;
-    text-align: center;
-    line-height: 160px;
-  }
-}
 </style>

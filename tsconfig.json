@@ -8,13 +8,13 @@
     "moduleResolution": "node", // 将模块解析为 Node.js 模块
     // "isolatedModules": true, // 把每一个文件转译成一个单独的模块
     "allowSyntheticDefaultImports": true, // 允许在导入语句中使用默认导入
-    "types": ["element-plus/global"],
+    "types": ["element-plus/global"], // 允许使用 Element-Plus 的全局变量
     "paths": {
       // 根据别名配置相关路径
-      "@components/*": ["./src/components/*"],
-      "@router/*": ["./src/router/*"],
-      "@store/*": ["./src/store/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@components/*": ["./src/components/*"], // 允许使用 @components/* 别名
+      "@router/*": ["./src/router/*"], // 允许使用 @router/* 别名
+      "@store/*": ["./src/store/*"], // 允许使用 @store/* 别名
+      "@utils/*": ["./src/utils/*"] // 允许使用 @utils/* 别名
     }
   },
   "include": [
