@@ -2,15 +2,18 @@
 
 .main-container {
   min-height: 100%;
-  transition: margin-left @transitionDuration;
-  margin-left: 16rem;
+  transition: all @transitionDuration;
+  margin-left: @sidebarWidth;
   position: relative;
+  &.is-opened {
+    margin-left: 3.2rem;
+  }
 }
 
 .sidebar-container {
   transition: width @transitionDuration;
   width: 16rem;
-  background-color: @siderbarBackgroundColor;
+  background-color: @sidebarBackgroundColor;
   height: 100%;
   position: fixed;
   //   font-size: 0px;
@@ -19,6 +22,17 @@
   left: 0;
   //   z-index: 1001;
   overflow: hidden;
+  &.is-opened {
+    width: 3.2rem;
+  }
+}
+
+.navbar {
+  height: 3.2rem;
+  overflow: hidden;
+  position: relative;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }
 
 .navbar-hamburger {

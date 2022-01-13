@@ -3,14 +3,25 @@ import Sidebar from '@layout/Sidebar/index.vue'
 import Navbar from '@layout/Navbar/index.vue'
 
 import { useStore } from '@store/store' // 引入自定义store
-const store = useStore() // 初始化store
+
 import { ref } from 'vue'
-let temp = ref(1)
+
+const store = useStore() // 初始化store
 </script>
 
 <template>
-  <Sidebar class="sidebar-container"></Sidebar>
-  <div class="main-container">
+  <Sidebar
+    :class="{
+      'sidebar-container': true,
+      'is-opened': store.state.isSidebarOpened
+    }"
+  ></Sidebar>
+  <div
+    :class="{
+      'main-container': true,
+      'is-opened': store.state.isSidebarOpened
+    }"
+  >
     <div :class="{ 'fixed-header': true }">
       <Navbar></Navbar>
       <span>Content</span>

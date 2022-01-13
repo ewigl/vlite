@@ -12,7 +12,7 @@ const handleClose = (key: string, keyPath: string[]) => {
 </script>
 
 <template>
-  <el-scrollbar wrap-class="scrollbar-wrapper">
+  <el-scrollbar wrap-class="sidebar-wrapper">
     <el-menu
       class="el-menu-vertical-demo"
       @open="handleOpen"
@@ -40,8 +40,4 @@ const handleClose = (key: string, keyPath: string[]) => {
   </el-scrollbar>
 </template>
 
-<style scoped>
-.scrollbar-wrapper {
-  overflow-x: hidden !important;
-}
-</style>
+<style scoped></style>
