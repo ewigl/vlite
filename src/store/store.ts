@@ -14,6 +14,21 @@ export const store = createStore<State>({
     count: 0,
     name: 'Vue',
     isSidebarOpened: true
+  },
+  getters: {
+    count(state) {
+      return state.count
+    }
+  },
+  actions: {
+    increment(context) {
+      context.commit('increment')
+    }
+  },
+  mutations: {
+    increment(state) {
+      state.count++
+    }
   }
 })
 
