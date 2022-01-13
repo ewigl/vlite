@@ -2,9 +2,11 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 
-import AutoImport from 'unplugin-auto-import/vite' //ElementPlus
-import Components from 'unplugin-vue-components/vite' //ElementPlus
+import AutoImport from 'unplugin-auto-import/vite' //ElementPlusAutoImport
+import Components from 'unplugin-vue-components/vite' //ElementPlusComponents
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers' //ElementPlus
+import Icons from 'unplugin-icons/vite' //Icons
+import IconsResolver from 'unplugin-icons/resolver' //IconsResolver
 
 export default defineConfig({
   server: {
@@ -36,7 +38,14 @@ export default defineConfig({
     }),
     Components({
       // 引入组件插件
-      resolvers: [ElementPlusResolver()]
-    })
+      resolvers: [ElementPlusResolver(), IconsResolver()]
+    }),
+    Icons({
+      scale: 1.6 // 图标缩放比例
+      // defaultStyle: '', // Style apply to icons
+      // defaultClass: '', // Class names apply to icons
+      // compiler: null, // 'vue2', 'vue3', 'jsx'
+      // jsx: 'react' // 'react' or 'preact'
+    }) // 引入图标插件
   ]
 })
