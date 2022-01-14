@@ -5,25 +5,23 @@
   transition: all @transitionDuration;
   margin-left: @sidebarWidth;
   position: relative;
-  &.is-opened {
-    margin-left: 3.2rem;
+  &.is-sidebar-opened {
+    margin-left: @sidebarCollapsedWidth;
   }
 }
 
 .sidebar-container {
   transition: width @transitionDuration;
-  width: 16rem;
+  width: @sidebarCollapsedWidth;
   background-color: @sidebarBackgroundColor;
   height: 100%;
   position: fixed;
-  //   font-size: 0px;
   top: 0;
   bottom: 0;
   left: 0;
-  //   z-index: 1001;
   overflow: hidden;
-  &.is-opened {
-    width: 3.2rem;
+  &.is-sidebar-opened {
+    width: @sidebarWidth;
   }
 }
 

@@ -10,10 +10,10 @@ import IconsResolver from 'unplugin-icons/resolver' //IconsResolver
 
 export default defineConfig({
   server: {
-    port: 8486,
-    hmr: {
-      overlay: false
-    }
+    port: 8486
+    // hmr: {
+    // overlay: false
+    // }
   },
   resolve: {
     // 对于模块的解析

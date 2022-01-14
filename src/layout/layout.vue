@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import Sidebar from '@layout/Sidebar/index.vue'
-import Navbar from '@layout/Navbar/index.vue'
+import Sidebar from '@layout/Sidebar/Sidebar.vue'
+import Navbar from '@layout/Navbar/Navbar.vue'
+import Content from '@layout/Content/Content.vue'
 
 import { useStore } from '@store/store' // 引入自定义store
 
@@ -13,19 +14,20 @@ const store = useStore() // 初始化store
   <Sidebar
     :class="{
       'sidebar-container': true,
-      'is-opened': store.state.isSidebarOpened
+      'is-sidebar-opened': store.state.isSidebarOpened
     }"
   ></Sidebar>
   <div
     :class="{
       'main-container': true,
-      'is-opened': store.state.isSidebarOpened
+      'is-sidebar-opened': !store.state.isSidebarOpened
     }"
   >
-    <div :class="{ 'fixed-header': true }">
+    <div>
       <Navbar></Navbar>
-      <span>Content</span>
-      <!-- <navbar /> -->
+      <!-- <span>Content</span> -->
+      <Content></Content>
+      <!-- <router-view></router-view> -->
     </div>
     <!-- <app-main /> -->
   </div>

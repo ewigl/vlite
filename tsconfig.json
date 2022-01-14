@@ -12,8 +12,10 @@
     "paths": {
       // 根据别名配置相关路径
       "@components/*": ["./src/components/*"], // 允许使用 @components/* 别名
+      "@layout/*": ["./src/layout/*"], // 允许使用 @layout/* 别名
       "@router/*": ["./src/router/*"], // 允许使用 @router/* 别名
       "@store/*": ["./src/store/*"], // 允许使用 @store/* 别名
+      "@styles/*": ["./src/styles/*"], // 允许使用 @styles/* 别名
       "@utils/*": ["./src/utils/*"] // 允许使用 @utils/* 别名
     }
   },
