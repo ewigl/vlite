@@ -1,8 +1,22 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRouter, useRoute } from 'vue-router'
+import { computed } from 'vue'
+
+const router = useRouter()
+const routes = computed(() => {
+  return router.options.routes
+})
+
+// const routes = computed(() => {
+//   return useRoute().matched
+// })
+</script>
 
 <template>
-  <div>Dashboard</div>
-  <el-button :disabled="true" type="text" size="default">textbutton</el-button>
+  <div>
+    <!-- Dashboard -->
+    {{ routes }}
+  </div>
 </template>
 
 <style scoped></style>
