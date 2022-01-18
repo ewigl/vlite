@@ -1,13 +1,13 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 import Layout from '@/layout/layout.vue'
-// import DataTable from '@views/Data/Table.vue'
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     component: Layout,
     redirect: '/dashboard',
+    name: 'Dashboard',
     children: [
       {
         path: 'dashboard',
@@ -20,17 +20,49 @@ const routes = [
   {
     path: '/data',
     component: Layout,
+    name: 'Data',
     children: [
       {
         path: 'table',
         name: 'Table',
         component: () => import('@views/Data/Table.vue'),
-        // component: DataTable,
-        meta: { title: 'Table', icon: 'table' }
+        meta: { title: 'Table', icon: 'table' },
+        children: [
+          {
+            path: 'table-list',
+            name: 'TableList',
+            component: () => import('@views/Data/TableList.vue'),
+            meta: { title: 'TableList', icon: 'table-list' }
+          }
+        ]
+      },
+      {
+        path: 'form',
+        name: 'Form',
+        component: () => import('@views/Data/Form.vue'),
+        meta: { title: 'Form', icon: 'form' }
       }
     ]
   },
-  { path: '/404', component: () => import('@views/404/index.vue') }
+  {
+    path: '/user',
+    component: Layout,
+    name: 'User',
+    children: [
+      {
+        path: '',
+        name: 'User',
+        component: () => import('@views/System/User.vue'),
+        meta: { title: 'User', icon: 'user' }
+      }
+    ]
+  }
+  // {
+  //   path: '/404',
+  //   name: '404',
+  //   component: () => import('@views/404/index.vue'),
+  //   meta: { title: '404', icon: '404' }
+  // }
 ]
 
 const router = createRouter({

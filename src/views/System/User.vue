@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="page_wrapper">DataTable</div>
+  <div>User</div>
 </template>
 
 <style scoped></style>
