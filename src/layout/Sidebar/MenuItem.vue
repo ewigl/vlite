@@ -6,17 +6,31 @@ defineProps<{
   basePath: string
 }>()
 
-function isLeaf(item: RouteRecordRaw): boolean {
-  return (
-    !item.children || item.children.length === 0 || item.children.every(isLeaf)
-  )
+let onlyOneChild: RouteRecordRaw
+
+function hasOnlyOneChild(
+  children: object[] = [],
+  parent: RouteRecordRaw
+): boolean {
+  let itemChildren = children.filter((item) => {
+    onlyOneChild = item as RouteRecordRaw
+    return true
+  })
+  if (itemChildren.length === 1) {
+    return true
+  }
+  if (itemChildren.length === 0) {
+    onlyOneChild = { ...parent, path: '' }
+    return true
+  }
+  return false
 }
 </script>
 
 <template>
-  <template v-if="isLeaf(item)">
-    <el-menu-item :index="item.path" :key="item.path">
-      {{ item.name }}
+  <template v-if="hasOnlyOneChild(item.children, item)">
+    <el-menu-item :index="onlyOneChild.path" :key="onlyOneChild.path">
+      {{ onlyOneChild.name }}
     </el-menu-item>
   </template>
   <template v-else>
@@ -26,7 +40,7 @@ function isLeaf(item: RouteRecordRaw): boolean {
         v-for="child in item.children"
         :item="child"
         :base-path="basePath + child.path"
-      ></MenuItem>
+      />
     </el-sub-menu>
   </template>
 </template>
