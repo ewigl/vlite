@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { RouteRecordRaw } from 'vue-router'
 
 defineProps<{
@@ -6,31 +7,19 @@ defineProps<{
   basePath: string
 }>()
 
-let onlyOneChild: RouteRecordRaw
+function hasNoChild(item: RouteRecordRaw) {
+  return !item.children || item.children.length < 1
+}
 
-function hasOnlyOneChild(
-  children: object[] = [],
-  parent: RouteRecordRaw
-): boolean {
-  let itemChildren = children.filter((item) => {
-    onlyOneChild = item as RouteRecordRaw
-    return true
-  })
-  if (itemChildren.length === 1) {
-    return true
-  }
-  if (itemChildren.length === 0) {
-    onlyOneChild = { ...parent, path: '' }
-    return true
-  }
-  return false
+function hasOnlyOneChild(item: RouteRecordRaw) {
+  return item.children && item.children.length === 1
 }
 </script>
 
 <template>
-  <template v-if="hasOnlyOneChild(item.children, item)">
-    <el-menu-item :index="onlyOneChild.path" :key="onlyOneChild.path">
-      {{ onlyOneChild.name }}
+  <template v-if="hasNoChild(item)">
+    <el-menu-item :index="item.path" :key="item.path">
+      {{ item.name }}
     </el-menu-item>
   </template>
   <template v-else>

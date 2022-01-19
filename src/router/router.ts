@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 import Layout from '@/layout/layout.vue'
+import NotFound from '@/views/404/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -58,10 +59,10 @@ const routes: Array<RouteRecordRaw> = [
     ]
   }
   // {
-  //   path: '/404',
-  //   name: '404',
-  //   component: () => import('@views/404/index.vue'),
-  //   meta: { title: '404', icon: '404' }
+  //   path: '/:pathMatch(.*)*',
+  //   name: 'NotFound',
+  //   component: NotFound,
+  //   meta: { title: 'NotFound', icon: '404', hidden: true }
   // }
 ]
 
