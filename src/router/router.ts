@@ -30,10 +30,16 @@ const routes: Array<RouteRecordRaw> = [
         meta: { title: 'Table', icon: 'table' },
         children: [
           {
-            path: 'table-list',
+            path: 'list',
             name: 'TableList',
             component: () => import('@views/Data/TableList.vue'),
             meta: { title: 'TableList', icon: 'table-list' }
+          },
+          {
+            path: 'edit',
+            name: 'TableEdit',
+            component: () => import('@views/Data/TableEdit.vue'),
+            meta: { title: 'TableEdit', icon: 'table-edit' }
           }
         ]
       },
