@@ -24,19 +24,19 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Data',
     children: [
       {
-        path: 'table',
+        path: '/data/table',
         name: 'Table',
         component: () => import('@views/Data/Table.vue'),
         meta: { title: 'Table', icon: 'table' },
         children: [
           {
-            path: 'list',
+            path: '/data/table/list',
             name: 'TableList',
             component: () => import('@views/Data/TableList.vue'),
             meta: { title: 'TableList', icon: 'table-list' }
           },
           {
-            path: 'edit',
+            path: '/data/table/edit',
             name: 'TableEdit',
             component: () => import('@views/Data/TableEdit.vue'),
             meta: { title: 'TableEdit', icon: 'table-edit' }
@@ -44,7 +44,7 @@ const routes: Array<RouteRecordRaw> = [
         ]
       },
       {
-        path: 'form',
+        path: '/data/form',
         name: 'Form',
         component: () => import('@views/Data/Form.vue'),
         meta: { title: 'Form', icon: 'form' }

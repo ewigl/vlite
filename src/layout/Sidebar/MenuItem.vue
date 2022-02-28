@@ -45,7 +45,7 @@ const hasOnlyOneChild = (
 
 <template>
   <template v-if="hasOnlyOneChild(item.children, item)">
-    <el-menu-item :index="item.path">
+    <el-menu-item :index="item.path" :route="item.path">
       {{ item.name }}
     </el-menu-item>
   </template>
