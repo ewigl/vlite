@@ -12,7 +12,7 @@ const routes = computed(() => {
 
 <template>
   <el-scrollbar wrap-class="sidebar-wrapper">
-    <el-menu class="el-menu-vertical-demo" :router="true">
+    <el-menu class="el-menu-vertical-demo" router>
       <MenuItem v-for="route in routes" :item="route" :base-path="route.path" />
     </el-menu>
   </el-scrollbar>

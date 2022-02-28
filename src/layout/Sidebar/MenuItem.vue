@@ -4,7 +4,7 @@ import { RouteRecordRaw } from 'vue-router'
 
 const props = defineProps<{
   item: RouteRecordRaw
-  basePath: string
+  basePath?: string
 }>()
 
 const onlyOneChild = ref()
@@ -49,12 +49,8 @@ const hasOnlyOneChild = (
       {{ item.name }}
     </el-menu-item>
   </template>
-  <el-sub-menu v-else :index="basePath">
+  <el-sub-menu v-else :index="item.path">
     <template #title>{{ item.name }}</template>
-    <MenuItem
-      v-for="child in item.children"
-      :item="child"
-      :base-path="child.path"
-    />
+    <MenuItem v-for="child in item.children" :item="child" />
   </el-sub-menu>
 </template>

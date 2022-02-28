@@ -1,18 +1,79 @@
 <script setup lang="ts">
-import Template from './components/Template.vue'
-import { useRouter, useRoute } from 'vue-router'
-import { onMounted, computed } from 'vue'
+import { onMounted, getCurrentInstance } from 'vue'
 
-const router = useRouter()
-// const routes = computed(() => {
-//   return router.options.routes
-// })
+const { proxy } = getCurrentInstance() as any
+
+let echartsData = {
+  xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      data: [150, 230, 224, 218, 135, 147, 260],
+      type: 'line'
+    }
+  ]
+}
+let radarData = {
+  title: {
+    text: 'Basic Radar Chart'
+  },
+  legend: {
+    data: ['Allocated Budget', 'Actual Spending']
+  },
+  radar: {
+    // shape: 'circle',
+    indicator: [
+      { name: 'Sales', max: 6500 },
+      { name: 'Administration', max: 16000 },
+      { name: 'Information Technology', max: 30000 },
+      { name: 'Customer Support', max: 38000 },
+      { name: 'Development', max: 52000 },
+      { name: 'Marketing', max: 25000 }
+    ]
+  },
+  series: [
+    {
+      name: 'Budget vs spending',
+      type: 'radar',
+      data: [
+        {
+          value: [4200, 3000, 20000, 35000, 50000, 18000],
+          name: 'Allocated Budget'
+        },
+        {
+          value: [5000, 14000, 28000, 26000, 42000, 21000],
+          name: 'Actual Spending'
+        }
+      ]
+    }
+  ]
+}
+onMounted(() => {
+  let chartDom = document.getElementById('echartsExample')
+  let chart1 = proxy.echarts.init(chartDom)
+  chart1.setOption(echartsData)
+
+  let chartDom2 = document.getElementById('echartsExample2')
+  let chart2 = proxy.echarts.init(chartDom2)
+  chart2.setOption(radarData)
+})
 </script>
 
 <template>
   <div class="page_wrapper">
-    <el-button type="primary" size="default"> Dashboard </el-button>
-    <Template msg="Hello Template"></Template>
+    <el-row>
+      <el-col :span="12">
+        <div id="echartsExample" style="width: 100%; height: 400px"></div>
+      </el-col>
+      <el-col :span="12">
+        <div id="echartsExample2" style="width: 100%; height: 400px"></div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
