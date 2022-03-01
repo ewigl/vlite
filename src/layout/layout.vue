@@ -25,11 +25,8 @@ const store = useStore() // 初始化store
   >
     <div>
       <Navbar></Navbar>
-      <!-- <span>Content</span> -->
       <Content></Content>
-      <!-- <router-view></router-view> -->
     </div>
-    <!-- <app-main /> -->
   </div>
 </template>
 

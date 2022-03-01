@@ -1,8 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter() // 初始化router
+
+const routes = computed(() => {
+  return router.options.routes
+})
+</script>
 <template>
-  <el-breadcrumb class="layout-breadcrumb" separator="/">
-    <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
-  </el-breadcrumb>
+  <!-- <el-breadcrumb class="layout-breadcrumb" separator="/"> </el-breadcrumb> -->
 </template>
 
 <style lang="less">

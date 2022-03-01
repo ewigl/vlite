@@ -12,10 +12,7 @@ const store = useStore()
       @click="store.state.isSidebarOpened = !store.state.isSidebarOpened"
       style="cursor: pointer"
     >
-      <i-ep-fold
-        v-if="store.state.isSidebarOpened"
-        class="navbar-hamburger"
-      />
+      <i-ep-fold v-if="store.state.isSidebarOpened" class="navbar-hamburger" />
       <i-ep-expand v-else class="navbar-hamburger" />
     </span>
     <Breadcrumb></Breadcrumb>
