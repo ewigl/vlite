@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import MenuItem from './MenuItem.vue'
-import { NavigationFailure, useRouter } from 'vue-router' // 引入自定义router
+import { useRouter } from 'vue-router' // 引入自定义router
 import { computed } from 'vue'
-import { MenuItemClicked } from 'element-plus/lib/components/menu/src/types'
-import path from 'path'
 
 const router = useRouter() // 初始化router
 

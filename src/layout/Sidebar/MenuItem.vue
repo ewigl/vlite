@@ -10,10 +10,6 @@ const props = defineProps<{
 const onlyOneChild = ref()
 const basePath = toRef(props, 'basePath')
 
-// onMounted(() => {
-//   console.log('basePath.value', basePath.value)
-// })
-
 const hasOnlyOneChild = (
   children: RouteRecordRaw[] = [],
   parent: RouteRecordRaw
@@ -37,15 +33,15 @@ const hasOnlyOneChild = (
 
   return false
 }
-
-// function resolvePath(routePath: string) {
-//   return props.basePath + routePath
-// }
 </script>
 
 <template>
   <template v-if="hasOnlyOneChild(item.children, item)">
-    <el-menu-item :index="item.path" :route="item.path">
+    <el-menu-item
+      v-if="!item.meta?.hidden"
+      :index="item.path"
+      :route="item.path"
+    >
       {{ item.name }}
     </el-menu-item>
   </template>

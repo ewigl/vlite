@@ -68,13 +68,18 @@ onMounted(() => {
   <div class="page_wrapper">
     <el-row>
       <el-col :span="12">
-        <div id="echartsExample" style="width: 100%; height: 24rem"></div>
+        <div id="echartsExample" class="e-charts"></div>
       </el-col>
       <el-col :span="12">
-        <div id="echartsExample2" style="width: 100%; height: 24rem"></div>
+        <div id="echartsExample2" class="e-charts"></div>
       </el-col>
     </el-row>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="less">
+.e-charts {
+  width: 100%;
+  height: 24rem;
+}
+</style>

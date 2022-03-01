@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
+import App from '@/App.vue'
 import Layout from '@/layout/layout.vue'
 import NotFound from '@/views/404/index.vue'
 
@@ -26,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/data/table',
         name: 'Table',
-        component: () => import('@views/Data/Table.vue'),
+        component: App,
         meta: { title: 'Table', icon: 'table' },
         children: [
           {
@@ -34,6 +35,20 @@ const routes: Array<RouteRecordRaw> = [
             name: 'TableList',
             component: () => import('@views/Data/TableList.vue'),
             meta: { title: 'TableList', icon: 'table-list' }
+            // children: [
+            //   {
+            //     path: '/data/table/list/children1',
+            //     name: 'TableListChildren1',
+            //     component: () => import('@views/Data/TableList.vue'),
+            //     meta: { title: 'TableList', icon: 'table-list' }
+            //   },
+            //   {
+            //     path: '/data/table/list/children2',
+            //     name: 'TableListChildren2',
+            //     component: () => import('@views/Data/TableList.vue'),
+            //     meta: { title: 'TableList', icon: 'table-list' }
+            //   }
+            // ]
           },
           {
             path: '/data/table/edit',
@@ -63,13 +78,20 @@ const routes: Array<RouteRecordRaw> = [
         meta: { title: 'User', icon: 'user' }
       }
     ]
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: Layout,
+    meta: { title: 'NotFound', icon: '404', hidden: true },
+    children: [
+      {
+        path: '',
+        name: 'NotFound',
+        component: NotFound
+      }
+    ]
   }
-  // {
-  //   path: '/:pathMatch(.*)*',
-  //   name: 'NotFound',
-  //   component: NotFound,
-  //   meta: { title: 'NotFound', icon: '404', hidden: true }
-  // }
 ]
 
 const router = createRouter({
