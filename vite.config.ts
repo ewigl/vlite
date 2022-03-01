@@ -9,6 +9,7 @@ import Icons from 'unplugin-icons/vite' //Icons
 import IconsResolver from 'unplugin-icons/resolver' //IconsResolver
 
 export default defineConfig({
+  base: './',
   server: {
     port: 8486
     // hmr: {
