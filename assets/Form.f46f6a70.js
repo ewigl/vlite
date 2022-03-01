@@ -1,0 +1,1 @@
+import{_ as e}from"./index.2da9f4ec.js";import{o as r,f as a}from"./vendor.44a3c19a.js";const o={},c={class:"page_wrapper"};function s(t,n){return r(),a("div",c,"DataForm")}var d=e(o,[["render",s]]);export{d as default};

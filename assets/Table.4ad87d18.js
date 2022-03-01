@@ -1,0 +1,1 @@
+import{_ as e}from"./index.2da9f4ec.js";import{o as a,f as r}from"./vendor.44a3c19a.js";const c={},o={class:"page_wrapper"};function s(t,n){return a(),r("div",o,"DataTable")}var d=e(c,[["render",s]]);export{d as default};
