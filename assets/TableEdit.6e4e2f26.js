@@ -1,0 +1,1 @@
+import{_ as e}from"./index.4995c3da.js";import{o as a,f as r}from"./vendor.44a3c19a.js";const c={},o={class:"page_wrapper"};function t(s,n){return a(),r("div",o,"TableEdit")}var i=e(c,[["render",t]]);export{i as default};

@@ -1,1 +1,0 @@
-import{_ as e}from"./index.2da9f4ec.js";import{o as a,f as r}from"./vendor.44a3c19a.js";const s={},c={class:"page_wrapper"};function o(t,n){return a(),r("div",c,"TableList")}var i=e(s,[["render",o]]);export{i as default};
