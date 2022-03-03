@@ -1,1 +1,0 @@
-import{_ as e}from"./index.f7598df7.js";import{o as r,b as s}from"./vendor.f0485b88.js";const o={},c={class:"page_wrapper"};function t(a,n){return r(),s("div",c,"User")}var d=e(o,[["render",t]]);export{d as default};
