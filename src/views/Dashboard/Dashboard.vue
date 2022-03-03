@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { onMounted, getCurrentInstance } from 'vue'
+import { onMounted } from 'vue'
+import Charts from '@/components/Charts/Charts.vue'
 
-const { proxy } = getCurrentInstance() as any
-
-let echartsData = {
+let lineChartData = {
   xAxis: {
     type: 'category',
     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -18,49 +17,44 @@ let echartsData = {
     }
   ]
 }
-let radarData = {
+
+let pieChartData = {
   title: {
-    text: 'Basic Radar Chart'
+    text: 'Referer of a Website',
+    subtext: 'Fake Data',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'item'
   },
   legend: {
-    data: ['Allocated Budget', 'Actual Spending']
-  },
-  radar: {
-    // shape: 'circle',
-    indicator: [
-      { name: 'Sales', max: 6500 },
-      { name: 'Administration', max: 16000 },
-      { name: 'Information Technology', max: 30000 },
-      { name: 'Customer Support', max: 38000 },
-      { name: 'Development', max: 52000 },
-      { name: 'Marketing', max: 25000 }
-    ]
+    orient: 'vertical',
+    left: 'left'
   },
   series: [
     {
-      name: 'Budget vs spending',
-      type: 'radar',
+      name: 'Access From',
+      type: 'pie',
+      radius: '50%',
       data: [
-        {
-          value: [4200, 3000, 20000, 35000, 50000, 18000],
-          name: 'Allocated Budget'
-        },
-        {
-          value: [5000, 14000, 28000, 26000, 42000, 21000],
-          name: 'Actual Spending'
+        { value: 1048, name: 'Search Engine' },
+        { value: 735, name: 'Direct' },
+        { value: 580, name: 'Email' },
+        { value: 484, name: 'Union Ads' },
+        { value: 300, name: 'Video Ads' }
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
         }
-      ]
+      }
     }
   ]
 }
 onMounted(() => {
-  let chartDom = document.getElementById('echartsExample')
-  let chart1 = proxy.echarts.init(chartDom)
-  chart1.setOption(echartsData)
-
-  let chartDom2 = document.getElementById('echartsExample2')
-  let chart2 = proxy.echarts.init(chartDom2)
-  chart2.setOption(radarData)
+  console.log('onMounted Dashboard')
 })
 </script>
 
@@ -68,10 +62,10 @@ onMounted(() => {
   <div class="page_wrapper">
     <el-row>
       <el-col :span="12">
-        <div id="echartsExample" class="e-charts"></div>
+        <Charts class="e-charts" :options="lineChartData"></Charts>
       </el-col>
       <el-col :span="12">
-        <div id="echartsExample2" class="e-charts"></div>
+        <Charts class="e-charts" :options="pieChartData"></Charts>
       </el-col>
     </el-row>
   </div>
