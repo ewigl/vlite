@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import Charts from '@/components/Charts/Charts.vue'
+import Chart from '@/components/Chart/Chart.vue'
 
 let lineChartData = {
   xAxis: {
@@ -54,7 +54,9 @@ let pieChartData = {
   ]
 }
 onMounted(() => {
-  console.log('onMounted Dashboard')
+  // console.log('onMounted Dashboard')
+  // console.log('MODE:' + import.meta.env.MODE)
+  // console.log('VITE_DEV_API:' + import.meta.env.V_API)
 })
 </script>
 
@@ -62,10 +64,10 @@ onMounted(() => {
   <div class="page_wrapper">
     <el-row>
       <el-col :span="12">
-        <Charts class="e-charts" :options="lineChartData"></Charts>
+        <Chart class="e-charts" :options="lineChartData"></Chart>
       </el-col>
       <el-col :span="12">
-        <Charts class="e-charts" :options="pieChartData"></Charts>
+        <Chart class="e-charts" :options="pieChartData"></Chart>
       </el-col>
     </el-row>
   </div>

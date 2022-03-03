@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-
 import App from '@/App.vue'
 import Layout from '@/layout/layout.vue'
 import NotFound from '@/views/404/index.vue'
@@ -10,12 +9,12 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     redirect: '/dashboard',
     name: 'Dashboard',
+    meta: { title: 'Dashboard', icon: 'dashboard' },
     children: [
       {
         path: 'dashboard',
         name: 'Dashboard',
         component: () => import('@views/Dashboard/Dashboard.vue'),
-        meta: { title: 'Dashboard', icon: 'dashboard' }
       }
     ]
   },
@@ -23,6 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/data',
     component: Layout,
     name: 'Data',
+    meta: { title: 'Data', icon: 'database' },
     children: [
       {
         path: '/data/table',
@@ -35,20 +35,6 @@ const routes: Array<RouteRecordRaw> = [
             name: 'TableList',
             component: () => import('@views/Data/TableList.vue'),
             meta: { title: 'TableList', icon: 'table-list' }
-            // children: [
-            //   {
-            //     path: '/data/table/list/children1',
-            //     name: 'TableListChildren1',
-            //     component: () => import('@views/Data/TableList.vue'),
-            //     meta: { title: 'TableList', icon: 'table-list' }
-            //   },
-            //   {
-            //     path: '/data/table/list/children2',
-            //     name: 'TableListChildren2',
-            //     component: () => import('@views/Data/TableList.vue'),
-            //     meta: { title: 'TableList', icon: 'table-list' }
-            //   }
-            // ]
           },
           {
             path: '/data/table/edit',
@@ -67,12 +53,18 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
-    path: '/user',
+    path: '/system',
     component: Layout,
-    name: 'User',
+    name: 'System',
     children: [
       {
-        path: '',
+        path: '/system',
+        name: 'System',
+        component: () => import('@views/System/System.vue'),
+        meta: { title: 'User', icon: 'user' }
+      },
+      {
+        path: '/system/user',
         name: 'User',
         component: () => import('@views/System/User.vue'),
         meta: { title: 'User', icon: 'user' }

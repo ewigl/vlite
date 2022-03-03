@@ -42,11 +42,27 @@ const hasOnlyOneChild = (
       :index="item.path"
       :route="item.path"
     >
+      <svg-icon :name="item?.meta?.icon"></svg-icon>
       {{ item.name }}
     </el-menu-item>
   </template>
   <el-sub-menu v-else :index="item.path">
-    <template #title>{{ item.name }}</template>
+    <template #title>
+      <svg-icon :name="item?.meta?.icon"></svg-icon>
+      {{ item.name }}
+    </template>
     <MenuItem v-for="child in item.children" :item="child" />
   </el-sub-menu>
 </template>
+
+<style lang="less">
+.svg-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  font-size: 1.25em;
+  margin-right: 0.32rem;
+}
+</style>
