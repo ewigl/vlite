@@ -14,8 +14,6 @@ const echartsContainer = ref()
 const chart = ref()
 
 onMounted(() => {
-  // console.log('onMounted chart')
-  // console.log(options)
   chart.value = echarts.init(echartsContainer.value)
   chart.value.setOption(options.value)
 })

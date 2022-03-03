@@ -17,13 +17,11 @@ const store = useStore() // 初始化store
   <div
     :class="{
       'main-container': true,
-      'is-sidebar-opened': !store.state.isSidebarOpened
+      'is-sidebar-opened': store.state.isSidebarOpened
     }"
   >
-    <div>
       <Navbar></Navbar>
       <Content></Content>
-    </div>
   </div>
 </template>
 
