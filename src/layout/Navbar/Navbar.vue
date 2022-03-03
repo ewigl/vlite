@@ -18,9 +18,6 @@ const store = useStore()
         name="outdent"
       />
       <svg-icon v-else class="navbar-hamburger" name="indent" />
-
-      <!-- <i-ep-fold v-if="store.state.isSidebarOpened"  />
-      <i-ep-expand v-else class="navbar-hamburger" /> -->
     </span>
     <Breadcrumb></Breadcrumb>
   </div>

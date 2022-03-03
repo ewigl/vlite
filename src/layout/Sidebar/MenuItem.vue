@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { ref, toRef, onMounted } from 'vue'
+import { ref } from 'vue'
 import { RouteRecordRaw } from 'vue-router'
+import { useStore } from '@store/store'
+
+const store = useStore()
 
 const props = defineProps<{
   item: RouteRecordRaw
-  basePath?: string
 }>()
 
 const onlyOneChild = ref()
-const basePath = toRef(props, 'basePath')
 
 const hasOnlyOneChild = (
   children: RouteRecordRaw[] = [],
@@ -43,12 +44,14 @@ const hasOnlyOneChild = (
       :route="item.path"
     >
       <svg-icon :name="item?.meta?.icon"></svg-icon>
+      <!-- {{ store.state.isSidebarOpened ? item.name : '' }} -->
       {{ item.name }}
     </el-menu-item>
   </template>
   <el-sub-menu v-else :index="item.path">
     <template #title>
       <svg-icon :name="item?.meta?.icon"></svg-icon>
+      <!-- {{ store.state.isSidebarOpened ? item.name : '' }} -->
       {{ item.name }}
     </template>
     <MenuItem v-for="child in item.children" :item="child" />

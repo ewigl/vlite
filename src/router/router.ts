@@ -56,6 +56,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/system',
     component: Layout,
     name: 'System',
+    meta: { title: 'System', icon: 'setting' },
     children: [
       {
         path: '/system',

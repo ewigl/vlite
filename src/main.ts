@@ -5,7 +5,7 @@ import { store, key } from '@store/store' // 引入 vuex
 
 import '@styles/index.less' // 引入全局样式
 
-import '//at.alicdn.com/t/font_2621077_n8ms1ns7yum.js' // 引入图标
+import '//at.alicdn.com/t/font_2621077_hhkmkcfvwsh.js' // 引入图标
 import SvgIcon from '@components/SvgIcon/SvgIcon.vue' // 引入 svg-icon 组件
 
 const app = createApp(App)
