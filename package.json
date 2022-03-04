@@ -20,9 +20,9 @@
     "@vitejs/plugin-vue": "^2.2.4",
     "gh-pages": "^3.2.3",
     "less": "^4.1.2",
-    "unplugin-auto-import": "^0.5.9",
-    "unplugin-vue-components": "^0.17.11",
-    "vite": "^2.7.10",
-    "vue-tsc": "^0.29.8"
+    "unplugin-auto-import": "^0.6.1",
+    "unplugin-vue-components": "^0.17.21",
+    "vite": "^2.8.6",
+    "vue-tsc": "^0.32.1"
   }
 }
