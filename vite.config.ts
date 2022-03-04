@@ -5,17 +5,12 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite' //ElementPlusAutoImport
 import Components from 'unplugin-vue-components/vite' //ElementPlusComponents
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers' //ElementPlus
-// import Icons from 'unplugin-icons/vite' //Icons
-// import IconsResolver from 'unplugin-icons/resolver' //IconsResolver
 
 export default defineConfig({
   base: './', // 项目根目录
   envPrefix: 'V_', // 变量前缀
   server: {
     port: 8486 // 服务端口
-    // hmr: {
-    // overlay: false
-    // }
   },
   resolve: {
     // 对于模块的解析
@@ -41,13 +36,6 @@ export default defineConfig({
     Components({
       // 引入组件插件
       resolvers: [ElementPlusResolver()]
-    }),
-    // Icons({
-    //   scale: 1.6 // 图标缩放比例
-    //   // defaultStyle: '', // Style apply to icons
-    //   // defaultClass: '', // Class names apply to icons
-    //   // compiler: null, // 'vue2', 'vue3', 'jsx'
-    //   // jsx: 'react' // 'react' or 'preact'
-    // }) // 引入图标插件
+    })
   ]
 })
