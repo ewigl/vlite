@@ -3,18 +3,15 @@ import App from '@/App.vue'
 import router from '@router/router' // 引入路由
 import { store, key } from '@store/store' // 引入 vuex
 
-// import ElementPlus from 'element-plus'  // 引入element-plus
-// import 'element-plus/dist/index.css'    // 引入element-plus的样式
-
-import * as echarts from 'echarts'
-
 import '@styles/index.less' // 引入全局样式
+
+import 'https://at.alicdn.com/t/font_2621077_hhkmkcfvwsh.js' // 引入图标
+import SvgIcon from '@components/SvgIcon/SvgIcon.vue' // 引入 svg-icon 组件
 
 const app = createApp(App)
 
-app.config.globalProperties.echarts = echarts //绑定echarts实例
+app.component('svg-icon', SvgIcon) // 全局注册 svg-icon 组件
 
 app.use(router).use(store, key)
-// .use(ElementPlus)    // 引入element-plus
 
 app.mount('#app')
