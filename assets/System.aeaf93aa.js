@@ -1,0 +1,1 @@
+import{_ as e}from"./index.2655828a.js";import{o as t,a}from"./vendor.9a6190a4.js";import"../at.alicdn.com/t/font_2621077_hhkmkcfvwsh.js";const o={},r={class:"page_wrapper"};function s(c,n){return t(),a("div",r,"System")}var i=e(o,[["render",s]]);export{i as default};
