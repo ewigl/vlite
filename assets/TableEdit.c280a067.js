@@ -1,1 +1,0 @@
-import{_ as e}from"./index.2655828a.js";import{o as a,a as t}from"./vendor.9a6190a4.js";import"../at.alicdn.com/t/font_2621077_hhkmkcfvwsh.js";const o={},r={class:"page_wrapper"};function c(s,n){return a(),t("div",r,"TableEdit")}var f=e(o,[["render",c]]);export{f as default};
