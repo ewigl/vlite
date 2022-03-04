@@ -10,8 +10,7 @@ const store = useStore() // 初始化store
 <template>
   <Sidebar
     :class="{
-      'sidebar-container': true,
-      'is-sidebar-opened': store.state.isSidebarOpened
+      'sidebar-container': true
     }"
   ></Sidebar>
   <div
@@ -20,8 +19,8 @@ const store = useStore() // 初始化store
       'is-sidebar-opened': store.state.isSidebarOpened
     }"
   >
-      <Navbar></Navbar>
-      <Content></Content>
+    <Navbar></Navbar>
+    <Content></Content>
   </div>
 </template>
 
