@@ -6,7 +6,7 @@ import { useStore } from '@store/store'
 const store = useStore()
 
 const handleCommand = (command: string) => {
-  console.log(command)
+  store.commit('changeLanguage', command)
 }
 </script>
 
@@ -31,8 +31,8 @@ const handleCommand = (command: string) => {
         ></el-avatar>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item command="Command1"> Command1 </el-dropdown-item>
-            <el-dropdown-item command="Command2"> Command2 </el-dropdown-item>
+            <el-dropdown-item command="zhCn"> 中文 </el-dropdown-item>
+            <el-dropdown-item command="en"> English </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
