@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import Chart from '@/components/Chart/Chart.vue'
+// import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 
+// const locale = zhCn
 let lineChartData = {
   xAxis: {
     type: 'category',
@@ -62,7 +64,11 @@ onMounted(() => {
 
 <template>
   <div class="page_wrapper">
+    <!-- <el-config-provider :locale="locale"> </el-config-provider> -->
     <el-row>
+      <el-col :span="12">
+        <el-calendar />
+      </el-col>
       <el-col :span="12">
         <Chart class="e-charts" :options="lineChartData"></Chart>
       </el-col>

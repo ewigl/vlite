@@ -2,7 +2,7 @@
 
 <template>
   <router-view v-slot="{ Component }">
-    <transition name="fade-transform" mode="out-in">
+    <transition name="el-fade-in-linear" mode="out-in">
       <component :is="Component" />
     </transition>
   </router-view>

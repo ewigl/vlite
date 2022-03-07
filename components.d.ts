@@ -5,7 +5,9 @@
 declare module 'vue' {
   export interface GlobalComponents {
     Chart: typeof import('./src/components/Chart/Chart.vue')['default']
+    ElCalendar: typeof import('element-plus/es')['ElCalendar']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElRow: typeof import('element-plus/es')['ElRow']
