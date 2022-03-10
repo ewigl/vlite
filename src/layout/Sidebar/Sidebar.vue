@@ -18,7 +18,9 @@ const routes = computed(() => {
     <el-menu
       router
       :collapse="!store.state.isSidebarOpened"
-      background-color="#eee"
+      background-color="#304156"
+      text-color="#bfcbd9"
+      active-text-color="#fff"
     >
       <MenuItem v-for="route in routes" :item="route" :base-path="route.path" />
     </el-menu>

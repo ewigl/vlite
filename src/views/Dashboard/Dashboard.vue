@@ -60,19 +60,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="page_wrapper">
-    <el-row>
-      <el-col :span="12">
-        <el-calendar />
-      </el-col>
-      <el-col :span="12">
-        <Chart class="e-charts" :options="lineChartData"></Chart>
-      </el-col>
-      <el-col :span="12">
-        <Chart class="e-charts" :options="pieChartData"></Chart>
-      </el-col>
-    </el-row>
-  </div>
+  <el-row>
+    <el-col :span="12">
+      <el-calendar />
+    </el-col>
+    <el-col :span="12">
+      <Chart class="e-charts" :options="lineChartData"></Chart>
+    </el-col>
+    <el-col :span="12">
+      <Chart class="e-charts" :options="pieChartData"></Chart>
+    </el-col>
+  </el-row>
 </template>
 
 <style scoped lang="less">
