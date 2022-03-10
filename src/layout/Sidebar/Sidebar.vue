@@ -15,10 +15,24 @@ const routes = computed(() => {
 
 <template>
   <el-scrollbar>
-    <el-menu router :collapse="!store.state.isSidebarOpened">
+    <el-menu
+      router
+      :collapse="!store.state.isSidebarOpened"
+      background-color="#eee"
+    >
       <MenuItem v-for="route in routes" :item="route" :base-path="route.path" />
     </el-menu>
   </el-scrollbar>
 </template>
 
-<style scoped></style>
+<style scoped lang="less">
+@import '@styles/variables.less';
+.el-menu {
+  height: 100%;
+  position: absolute;
+  width: @sidebarWidth;
+  &--collapse {
+    width: @sidebarCollapsedWidth;
+  }
+}
+</style>

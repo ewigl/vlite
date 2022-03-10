@@ -11,7 +11,9 @@ const handleCommand = (command: string) => {
 </script>
 
 <template>
-  <div class="navbar">
+  <div
+    :class="{ navbar: true, 'is-sidebar-opened': store.state.isSidebarOpened }"
+  >
     <span
       @click="store.state.isSidebarOpened = !store.state.isSidebarOpened"
       style="cursor: pointer"
