@@ -5,7 +5,13 @@
 declare module 'vue' {
   export interface GlobalComponents {
     Chart: typeof import('./src/components/Chart/Chart.vue')['default']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElCalendar: typeof import('element-plus/es')['ElCalendar']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
+    ElDropdown: typeof import('element-plus/es')['ElDropdown']
+    ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
+    ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElRow: typeof import('element-plus/es')['ElRow']

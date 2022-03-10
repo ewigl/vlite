@@ -2,6 +2,7 @@ import { InjectionKey } from 'vue'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
 
 export interface State {
+  locale: 'zhCn' | 'en'
   count: number
   name: string
   isSidebarOpened: boolean
@@ -11,6 +12,7 @@ export const key: InjectionKey<Store<State>> = Symbol()
 
 export const store = createStore<State>({
   state: {
+    locale: 'zhCn',
     count: 0,
     name: 'Vue',
     isSidebarOpened: true
@@ -20,14 +22,10 @@ export const store = createStore<State>({
       return state.count
     }
   },
-  actions: {
-    increment(context) {
-      context.commit('increment')
-    }
-  },
+  actions: {},
   mutations: {
-    increment(state) {
-      state.count++
+    changeLanguage(state, locale) {
+      state.locale = locale
     }
   }
 })

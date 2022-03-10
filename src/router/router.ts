@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import App from '@/App.vue'
+import Content from '@/layout/Content/Content.vue'
 import Layout from '@/layout/layout.vue'
 import NotFound from '@/views/404/index.vue'
 
@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/data/table',
         name: 'Table',
-        component: App,
+        component: Content,
         meta: { title: 'Table', icon: 'table' },
         children: [
           {
