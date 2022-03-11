@@ -49,7 +49,7 @@ const confirmEditData = () => {
 }
 
 const handleDelete = (index: number, row: User) => {
-  tableData.splice(index, 1)
+  tableData.slice(index, 1)
   localStorage.setItem('TableData', JSON.stringify(tableData))
 }
 
