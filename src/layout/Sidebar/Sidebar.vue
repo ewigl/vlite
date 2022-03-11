@@ -34,5 +34,8 @@ const activedMenu = computed(() => router.currentRoute.value.path)
   height: 100%;
   position: absolute;
   width: @sidebarWidth;
+  &--collapse{
+    width: @sidebarCollapsedWidth;
+  }
 }
 </style>
