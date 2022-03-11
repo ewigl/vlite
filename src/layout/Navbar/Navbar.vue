@@ -19,11 +19,9 @@ const handleCommand = (command: string) => {
       style="cursor: pointer"
     >
       <svg-icon
-        v-if="store.state.isSidebarOpened"
         class="navbar-hamburger"
-        name="outdent"
+        :name="store.state.isSidebarOpened ? 'outdent' : 'indent'"
       />
-      <svg-icon v-else class="navbar-hamburger" name="indent" />
     </span>
     <Breadcrumb></Breadcrumb>
     <div style="text-align: right">

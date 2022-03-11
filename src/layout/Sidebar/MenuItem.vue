@@ -44,16 +44,14 @@ const hasOnlyOneChild = (
       :route="item.path"
     >
       <svg-icon :name="item?.meta?.icon"></svg-icon>
-      <span>{{ item.name }}</span>
+      <span>{{ item?.meta?.title }}</span>
     </el-menu-item>
   </template>
   <el-sub-menu v-else :index="item.path">
     <template #title>
       <svg-icon :name="item?.meta?.icon"></svg-icon>
-      <span>{{ item.name }}</span>
+      <span>{{ item?.meta?.title }}</span>
     </template>
     <MenuItem v-for="child in item.children" :item="child" />
   </el-sub-menu>
 </template>
-
-<style lang="less"></style>

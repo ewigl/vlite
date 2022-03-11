@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
-<template>NotFound</template>
+<template><div>NotFound</div></template>
 
 <style scoped></style>

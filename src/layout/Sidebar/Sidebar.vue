@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import MenuItem from './MenuItem.vue'
 import { useRouter } from 'vue-router' // 引入自定义router
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useStore } from '@store/store'
 
 const store = useStore()
-
-const router = useRouter() // 初始化router
-
+const router = useRouter()
 const routes = computed(() => {
   return router.options.routes
+})
+
+const activedMenu = computed(() => router.currentRoute.value.path)
+
+onMounted(() => {
+  console.log('router.currentRoute.value.path', router.currentRoute.value.path)
+  console.log('activedMenu', activedMenu.value)
 })
 </script>
 
@@ -17,6 +22,7 @@ const routes = computed(() => {
   <el-scrollbar>
     <el-menu
       router
+      :default-active="activedMenu"
       :collapse="!store.state.isSidebarOpened"
       background-color="#304156"
       text-color="#bfcbd9"
@@ -33,8 +39,5 @@ const routes = computed(() => {
   height: 100%;
   position: absolute;
   width: @sidebarWidth;
-  &--collapse {
-    width: @sidebarCollapsedWidth;
-  }
 }
 </style>

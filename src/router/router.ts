@@ -12,9 +12,9 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: 'Dashboard', icon: 'dashboard' },
     children: [
       {
-        path: 'dashboard',
+        path: '/',
         name: 'Dashboard',
-        component: () => import('@views/Dashboard/Dashboard.vue'),
+        component: () => import('@views/Dashboard/Dashboard.vue')
       }
     ]
   },
@@ -62,7 +62,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/system',
         name: 'System',
         component: () => import('@views/System/System.vue'),
-        meta: { title: 'User', icon: 'user' }
+        meta: { title: 'System', icon: 'user' }
       },
       {
         path: '/system/user',
