@@ -2,11 +2,12 @@
 import { onMounted, ref, reactive } from 'vue'
 
 const userForm = reactive({
-  index: 0,
   title: '',
   date: '',
   content: ''
 })
+
+let currentIndex = 0
 
 interface User {
   date: string
@@ -33,13 +34,13 @@ const handleEdit = (index: number, row: User) => {
   userForm.title = row.title
   userForm.date = row.date
   userForm.content = row.content
-  userForm.index = index
+  currentIndex = index
 }
 
 const confirmEditData = () => {
   formRef.value.validate(async (valid: boolean) => {
     if (valid) {
-      tableData.splice(userForm.index, 1, { ...userForm })
+      tableData.splice(currentIndex, 1, { ...userForm })
       localStorage.setItem('TableData', JSON.stringify(tableData))
       dialogVisible.value = false
     }
