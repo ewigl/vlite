@@ -1,76 +1,167 @@
 <script lang="ts" setup>
+import { onMounted, ref, reactive } from 'vue'
+
+const userForm = reactive({
+  title: '',
+  date: '',
+  content: ''
+})
 
 interface User {
   date: string
-  name: string
-  address: string
+  title: string
+  content: string
 }
+
+const dialogVisible = ref(false)
+const editMode = ref(false)
+const formRef = ref()
+let tableData: User[] = reactive(
+  localStorage.getItem('TableData')
+    ? JSON.parse(localStorage.getItem('TableData') || '[]')
+    : []
+)
+
+onMounted(() => {
+  console.log('onTableEditMounted')
+})
 
 const handleEdit = (index: number, row: User) => {
-  console.log(index, row)
-}
-const handleDelete = (index: number, row: User) => {
-  console.log(index, row)
+  editMode.value = true
+  dialogVisible.value = true
+  userForm.title = row.title
+  userForm.date = row.date
+  userForm.content = row.content
 }
 
-const tableData: User[] = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  }
-]
+const confirmEditData = () => {
+  tableData.splice(
+    tableData.findIndex((item) => item.date === userForm.date),
+    1,
+    {
+      date: userForm.date,
+      title: userForm.title,
+      content: userForm.content
+    }
+  )
+  localStorage.setItem('TableData', JSON.stringify(tableData))
+  dialogVisible.value = false
+}
+
+const handleDelete = (index: number, row: User) => {
+  tableData.splice(index, 1)
+  localStorage.setItem('TableData', JSON.stringify(tableData))
+}
+
+const confirmAddData = () => {
+  console.log('addData')
+  formRef.value.validate(async (valid: boolean) => {
+    if (valid) {
+      tableData.push(userForm)
+      localStorage.setItem('TableData', JSON.stringify(tableData))
+    }
+  })
+  dialogVisible.value = false
+}
 </script>
 
 <template>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column label="Date" width="180">
-      <template #default="scope">
-        <div style="display: flex; align-items: center">
-          <span style="margin-left: 10px">{{ scope.row.date }}</span>
-        </div>
+  <div>
+    <el-button
+      type="primary"
+      @click="
+        () => {
+          dialogVisible = true
+          editMode = false
+          userForm.title = ''
+          userForm.date = ''
+          userForm.content = ''
+        }
+      "
+    >
+      Add
+    </el-button>
+    <el-table :data="tableData">
+      <el-table-column label="Date" align="center">
+        <template #default="scope">
+          {{ scope.row.date }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Title" align="center">
+        <template #default="scope">
+          <el-popover placement="top">
+            <template #default>
+              <div style="color: brown">title: {{ scope.row.title }}</div>
+              <div style="color: cornflowerblue">
+                content: {{ scope.row.content }}
+              </div>
+            </template>
+            <template #reference>
+              <el-tag>{{ scope.row.title }}</el-tag>
+            </template>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <el-table-column label="Operations" align="center">
+        <template #default="scope">
+          <el-button
+            type="text"
+            size="small"
+            @click="handleEdit(scope.$index, scope.row)"
+          >
+            Edit
+          </el-button>
+          <el-button
+            type="text"
+            size="small"
+            style="color: red"
+            @click="handleDelete(scope.$index, scope.row)"
+          >
+            Delete
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-dialog
+      ref="formRef"
+      v-model="dialogVisible"
+      :title="editMode ? 'Edit' : 'Add'"
+      width="32%"
+    >
+      <el-form
+        ref="formRef"
+        :model="userForm"
+        label-width="4rem"
+        label-position="top"
+      >
+        <el-form-item label="title" prop="title">
+          <el-input v-model="userForm.title" />
+        </el-form-item>
+        <el-form-item label="date" prop="date">
+          <el-date-picker
+            style="width: 100%"
+            v-model="userForm.date"
+            value-format="YYYY-MM-DD"
+            type="date"
+          >
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="content" prop="content">
+          <el-input type="textarea" :rows="4" v-model="userForm.content" />
+        </el-form-item>
+      </el-form>
+
+      <template #footer>
+        <span>
+          <el-button @click="dialogVisible = false">Cancel</el-button>
+          <el-button v-if="!editMode" type="primary" @click="confirmAddData">
+            Confirm Add
+          </el-button>
+          <el-button v-else type="primary" @click="confirmEditData">
+            Confirm Edit
+          </el-button>
+        </span>
       </template>
-    </el-table-column>
-    <el-table-column label="Name" width="180">
-      <template #default="scope">
-        <el-popover effect="light" trigger="hover" placement="top" width="auto">
-          <template #default>
-            <div>name: {{ scope.row.name }}</div>
-            <div>address: {{ scope.row.address }}</div>
-          </template>
-          <template #reference>
-            <el-tag>{{ scope.row.name }}</el-tag>
-          </template>
-        </el-popover>
-      </template>
-    </el-table-column>
-    <el-table-column label="Operations">
-      <template #default="scope">
-        <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-          >Edit</el-button
-        >
-        <el-button
-          size="small"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)"
-          >Delete</el-button
-        >
-      </template>
-    </el-table-column>
-  </el-table>
+    </el-dialog>
+  </div>
 </template>

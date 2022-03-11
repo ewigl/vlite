@@ -22,6 +22,7 @@ const store = useStore() // 初始化store
   >
     <Navbar></Navbar>
     <Content></Content>
+    <el-backtop />
   </div>
 </template>
 

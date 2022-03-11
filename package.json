@@ -6,7 +6,7 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist",
-    "build-deploy": "vue-tsc --noEmit && vite build && gh-pages -d dist"
+    "bu-de": "vue-tsc --noEmit && vite build && gh-pages -d dist"
   },
   "dependencies": {
     "echarts": "^5.3.0",
