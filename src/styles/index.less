@@ -3,11 +3,6 @@
 @import 'layout.less';
 @import 'transitions.less';
 
-html {
-  height: 100%; // 页面高度100%
-  box-sizing: border-box; // 兼容性
-}
-
 body {
   margin: 0; // 去掉默认的margin
   height: 100%; // 高度100%
@@ -16,18 +11,6 @@ body {
   text-rendering: optimizeLegibility; // 文本渲染优化
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
     Microsoft YaHei, Arial, sans-serif; // 字体
-}
-
-.clearfix {
-  // 清除浮动
-  &:after {
-    visibility: hidden;
-    display: block;
-    font-size: 0;
-    content: ' ';
-    clear: both;
-    height: 0;
-  }
 }
 
 #app {
