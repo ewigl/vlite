@@ -2,6 +2,7 @@
 import { onMounted, ref, reactive } from 'vue'
 
 const userForm = reactive({
+  index: 0,
   title: '',
   date: '',
   content: ''
@@ -16,7 +17,7 @@ interface User {
 const dialogVisible = ref(false)
 const editMode = ref(false)
 const formRef = ref()
-let tableData: User[] = reactive(
+const tableData: User[] = reactive(
   localStorage.getItem('TableData')
     ? JSON.parse(localStorage.getItem('TableData') || '[]')
     : []
@@ -32,32 +33,30 @@ const handleEdit = (index: number, row: User) => {
   userForm.title = row.title
   userForm.date = row.date
   userForm.content = row.content
+  userForm.index = index
 }
 
 const confirmEditData = () => {
-  tableData.splice(
-    tableData.findIndex((item) => item.date === userForm.date),
-    1,
-    {
-      date: userForm.date,
-      title: userForm.title,
-      content: userForm.content
+  formRef.value.validate(async (valid: boolean) => {
+    if (valid) {
+      tableData.splice(userForm.index, 1, { ...userForm })
+      localStorage.setItem('TableData', JSON.stringify(tableData))
+      dialogVisible.value = false
     }
-  )
-  localStorage.setItem('TableData', JSON.stringify(tableData))
-  dialogVisible.value = false
+  })
 }
 
 const handleDelete = (index: number, row: User) => {
-  tableData.slice(index, 1)
+  tableData.splice(index, 1)
   localStorage.setItem('TableData', JSON.stringify(tableData))
+  return true
 }
 
 const confirmAddData = () => {
   console.log('addData')
   formRef.value.validate(async (valid: boolean) => {
     if (valid) {
-      tableData.push(userForm)
+      tableData.push({ ...userForm })
       localStorage.setItem('TableData', JSON.stringify(tableData))
     }
   })
@@ -81,7 +80,7 @@ const confirmAddData = () => {
     >
       Add
     </el-button>
-    <el-table :data="tableData">
+    <el-table :data="tableData" stripe>
       <el-table-column label="Date" align="center">
         <template #default="scope">
           {{ scope.row.date }}
@@ -111,14 +110,16 @@ const confirmAddData = () => {
           >
             Edit
           </el-button>
-          <el-button
-            type="text"
-            size="small"
-            style="color: red"
-            @click="handleDelete(scope.$index, scope.row)"
+          <el-popconfirm
+            title="Are you sure to delete this?"
+            @confirm="handleDelete(scope.$index, scope.row)"
           >
-            Delete
-          </el-button>
+            <template #reference>
+              <el-button type="text" size="small" style="color: red">
+                Delete
+              </el-button>
+            </template>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
