@@ -1,67 +1,99 @@
 <script lang="ts" setup>
-import { onMounted, ref, reactive } from 'vue'
-
-const userForm = reactive({
-  title: '',
-  date: '',
-  content: ''
-})
-
-let currentIndex = 0
+import { ElInput } from 'element-plus'
+import { ref, reactive, nextTick } from 'vue'
 
 interface User {
   date: string
   title: string
   content: string
+  tags: string[]
 }
+
+const todoForm = reactive({
+  title: '',
+  date: '',
+  content: '',
+  tags: ['']
+})
+
+const currentIndex = ref(0)
 
 const dialogVisible = ref(false)
 const editMode = ref(false)
+const tagValue = ref('')
+const tagInputVisible = ref(false)
+
+// const formRef = ref<InstanceType<typeof ElForm>>()
 const formRef = ref()
-const tableData: User[] = reactive(
-  localStorage.getItem('TableData')
-    ? JSON.parse(localStorage.getItem('TableData') || '[]')
+const InputRef = ref<InstanceType<typeof ElInput>>()
+
+const todoList: User[] = reactive(
+  localStorage.getItem('todoList')
+    ? JSON.parse(localStorage.getItem('todoList') || '[]')
     : []
 )
-
-onMounted(() => {
-  console.log('onTableEditMounted')
-})
 
 const handleEdit = (index: number, row: User) => {
   editMode.value = true
   dialogVisible.value = true
-  userForm.title = row.title
-  userForm.date = row.date
-  userForm.content = row.content
-  currentIndex = index
+  todoForm.title = row.title
+  todoForm.date = row.date
+  todoForm.content = row.content
+  todoForm.tags = [...row.tags]
+  currentIndex.value = index
 }
 
 const confirmEditData = () => {
   formRef.value.validate(async (valid: boolean) => {
     if (valid) {
-      tableData.splice(currentIndex, 1, { ...userForm })
-      localStorage.setItem('TableData', JSON.stringify(tableData))
+      todoList.splice(currentIndex.value, 1, { ...todoForm })
+      localStorage.setItem('todoList', JSON.stringify(todoList))
       dialogVisible.value = false
     }
   })
 }
 
 const handleDelete = (index: number, row: User) => {
-  tableData.splice(index, 1)
-  localStorage.setItem('TableData', JSON.stringify(tableData))
+  todoList.splice(index, 1)
+  localStorage.setItem('todoList', JSON.stringify(todoList))
   return true
 }
 
 const confirmAddData = () => {
-  console.log('addData')
   formRef.value.validate(async (valid: boolean) => {
     if (valid) {
-      tableData.push({ ...userForm })
-      localStorage.setItem('TableData', JSON.stringify(tableData))
+      todoList.push({ ...todoForm })
+      localStorage.setItem('todoList', JSON.stringify(todoList))
     }
   })
   dialogVisible.value = false
+}
+
+const closeTag = (tag: string) => {
+  todoForm.tags.splice(todoForm.tags.indexOf(tag), 1)
+}
+
+const handleInputConfirm = () => {
+  if (tagValue.value) {
+    todoForm.tags.push(tagValue.value)
+  }
+  tagInputVisible.value = false
+  tagValue.value = ''
+}
+
+const showInput = () => {
+  tagInputVisible.value = true
+  nextTick(() => {
+    InputRef.value!.input!.focus()
+  })
+}
+
+const clearList = () => {
+  // todoList.splice(0, todoList.length)
+  // localStorage.setItem('todoList', JSON.stringify(todoList))
+  todoList.splice(0, todoList.length)
+  localStorage.clear()
+  return true
 }
 </script>
 
@@ -73,21 +105,27 @@ const confirmAddData = () => {
         () => {
           dialogVisible = true
           editMode = false
-          userForm.title = ''
-          userForm.date = ''
-          userForm.content = ''
+          todoForm.title = ''
+          todoForm.date = ''
+          todoForm.content = ''
+          todoForm.tags = []
         }
       "
     >
-      Add
+      添加
     </el-button>
-    <el-table :data="tableData" stripe>
-      <el-table-column label="Date" align="center">
+    <el-popconfirm title="确定清空？此操作不可撤销！" @confirm="clearList">
+      <template #reference>
+        <el-button> 清空 </el-button>
+      </template>
+    </el-popconfirm>
+    <el-table :data="todoList" stripe>
+      <el-table-column label="日期" align="center">
         <template #default="scope">
           {{ scope.row.date }}
         </template>
       </el-table-column>
-      <el-table-column label="Title" align="center">
+      <el-table-column label="标题" align="center">
         <template #default="scope">
           <el-popover placement="top">
             <template #default>
@@ -102,22 +140,29 @@ const confirmAddData = () => {
           </el-popover>
         </template>
       </el-table-column>
-      <el-table-column label="Operations" align="center">
+      <el-table-column label="标签" align="center">
+        <template #default="scope">
+          <el-tag style="margin: 2px" v-for="tag in scope.row.tags">
+            {{ tag }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" align="center">
         <template #default="scope">
           <el-button
             type="text"
             size="small"
             @click="handleEdit(scope.$index, scope.row)"
           >
-            Edit
+            编辑
           </el-button>
           <el-popconfirm
-            title="Are you sure to delete this?"
+            title="确定删除?"
             @confirm="handleDelete(scope.$index, scope.row)"
           >
             <template #reference>
               <el-button type="text" size="small" style="color: red">
-                Delete
+                删除
               </el-button>
             </template>
           </el-popconfirm>
@@ -125,45 +170,74 @@ const confirmAddData = () => {
       </el-table-column>
     </el-table>
     <el-dialog
-      ref="formRef"
       v-model="dialogVisible"
-      :title="editMode ? 'Edit' : 'Add'"
+      :title="editMode ? '编辑' : '添加'"
       width="32%"
     >
       <el-form
         ref="formRef"
-        :model="userForm"
+        :model="todoForm"
         label-width="4rem"
         label-position="top"
       >
-        <el-form-item label="title" prop="title">
-          <el-input v-model="userForm.title" />
+        <el-form-item label="标题" prop="title">
+          <el-input v-model="todoForm.title" />
         </el-form-item>
-        <el-form-item label="date" prop="date">
+        <el-form-item label="日期" prop="date">
           <el-date-picker
             style="width: 100%"
-            v-model="userForm.date"
+            v-model="todoForm.date"
             value-format="YYYY-MM-DD"
             type="date"
           >
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="content" prop="content">
-          <el-input type="textarea" :rows="4" v-model="userForm.content" />
+        <el-form-item label="内容" prop="content">
+          <el-input type="textarea" :rows="4" v-model="todoForm.content" />
+        </el-form-item>
+        <el-form-item label="标签" prop="tags">
+          <el-tag
+            style="margin: 2px"
+            v-for="tag in todoForm.tags"
+            :key="tag"
+            closable
+            @close="closeTag(tag)"
+          >
+            {{ tag }}
+          </el-tag>
+          <el-input
+            v-if="tagInputVisible"
+            ref="InputRef"
+            class="tag-input"
+            v-model="tagValue"
+            size="small"
+            @keyup.enter="handleInputConfirm"
+            @blur="handleInputConfirm"
+          >
+          </el-input>
+          <el-button class="tag-input" v-else size="small" @click="showInput">
+            + 新 标签
+          </el-button>
         </el-form-item>
       </el-form>
 
       <template #footer>
         <span>
-          <el-button @click="dialogVisible = false">Cancel</el-button>
+          <el-button @click="dialogVisible = false">取消</el-button>
           <el-button v-if="!editMode" type="primary" @click="confirmAddData">
-            Confirm Add
+            添加
           </el-button>
           <el-button v-else type="primary" @click="confirmEditData">
-            Confirm Edit
+            确定
           </el-button>
         </span>
       </template>
     </el-dialog>
   </div>
 </template>
+
+<style lang="less" scoped>
+.tag-input {
+  width: 8rem;
+}
+</style>
