@@ -23,7 +23,6 @@ const editMode = ref(false)
 const tagValue = ref('')
 const tagInputVisible = ref(false)
 
-// const formRef = ref<InstanceType<typeof ElForm>>()
 const formRef = ref()
 const InputRef = ref<InstanceType<typeof ElInput>>()
 
@@ -56,7 +55,6 @@ const confirmEditData = () => {
 const handleDelete = (index: number, row: User) => {
   todoList.splice(index, 1)
   localStorage.setItem('todoList', JSON.stringify(todoList))
-  return true
 }
 
 const confirmAddData = () => {
@@ -89,11 +87,8 @@ const showInput = () => {
 }
 
 const clearList = () => {
-  // todoList.splice(0, todoList.length)
-  // localStorage.setItem('todoList', JSON.stringify(todoList))
   todoList.splice(0, todoList.length)
-  localStorage.clear()
-  return true
+  localStorage.removeItem('todoList')
 }
 </script>
 
