@@ -1,44 +1,96 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import Chart from '@/components/Chart/Chart.vue'
+import { onMounted, reactive, ref } from 'vue'
+import { getCityList, getCurrentWeather } from '@/api/dashboard'
+import debounce from 'lodash/debounce'
 
-let lineChartData = {
-  xAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      data: [150, 230, 224, 218, 135, 147, 260],
-      type: 'line'
-    }
-  ]
-}
+const currentCity = reactive(
+  JSON.parse(localStorage.getItem('currentCity') || '{}')
+)
+const selectedCity = ref<string>('')
+const selectLoading = ref(false)
+const cities = ref<ListItem[]>([])
 
 onMounted(() => {
-  // console.log('onMounted Dashboard')
-  // console.log('MODE:' + import.meta.env.MODE)
-  // console.log('VITE_DEV_API:' + import.meta.env.V_API)
+  getCurrentWeather({
+    lat: currentCity.lat,
+    lon: currentCity.lon,
+    appid: import.meta.env.V_WEATHER_APPID,
+    units: 'metric',
+    lang: 'zh_cn'
+  }).then((res) => {
+    console.log(res.data)
+  })
 })
+
+interface ListItem {
+  value: string
+  label: string
+}
+
+const getCities = async (query: string) => {
+  selectLoading.value = true
+  const res = await getCityList({
+    q: query,
+    appid: import.meta.env.V_WEATHER_APPID,
+    limit: 5
+  })
+  selectLoading.value = false
+  cities.value = res.data.map((item: any) => {
+    return {
+      label:
+        (item.local_names?.zh ? item.local_names?.zh : '') +
+        '_' +
+        item.name +
+        '_' +
+        item.state +
+        '_' +
+        item.country,
+      value: `${item.lat}_${item.lon}`,
+      ...item
+    }
+  })
+}
+
+const setCity = (value: object) => {
+  console.log('setCity', value)
+  localStorage.setItem('currentCity', JSON.stringify(value))
+}
 </script>
 
 <template>
   <el-row>
     <el-col :span="12">
-      <el-calendar />
+      <el-card class="weather-board">
+        <el-select
+          v-model="selectedCity"
+          value-key="value"
+          filterable
+          placeholder="输入以搜索城市"
+          remote
+          :remote-method="debounce(getCities, 500)"
+          style="width: 50%"
+          :loading="selectLoading"
+          @change="setCity"
+        >
+          <el-option
+            v-for="city in cities"
+            :key="city.value"
+            :label="city.label"
+            :value="city"
+        /></el-select>
+        <span> 当前城市: {{ currentCity.name }}</span>
+      </el-card>
     </el-col>
-    <el-col :span="12">
-      <Chart class="e-charts" :options="lineChartData"></Chart>
-    </el-col>
+    <!-- <el-col :span="12"> </el-col> -->
   </el-row>
 </template>
 
 <style scoped lang="less">
 .e-charts {
   width: 100%;
+  height: 24rem;
+}
+.weather-board {
   height: 24rem;
 }
 </style>
