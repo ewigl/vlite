@@ -3,22 +3,24 @@ import { onMounted, reactive, ref } from 'vue'
 import { getCityList, getCurrentWeather } from '@/api/dashboard'
 import debounce from 'lodash/debounce'
 
-const currentCity = reactive(
-  JSON.parse(localStorage.getItem('currentCity') || '{}')
-)
+const currentCity = ref(JSON.parse(localStorage.getItem('currentCity') || '{}'))
 const selectedCity = ref<string>('')
 const selectLoading = ref(false)
 const cities = ref<ListItem[]>([])
+const currentWeather = ref({
+  weather: []
+})
 
 onMounted(() => {
   getCurrentWeather({
-    lat: currentCity.lat,
-    lon: currentCity.lon,
+    lat: currentCity.value.lat,
+    lon: currentCity.value.lon,
     appid: import.meta.env.V_WEATHER_APPID,
     units: 'metric',
     lang: 'zh_cn'
   }).then((res) => {
-    console.log(res.data)
+    // console.log(res.data)
+    currentWeather.value = res.data
   })
 })
 
@@ -52,7 +54,7 @@ const getCities = async (query: string) => {
 }
 
 const setCity = (value: object) => {
-  console.log('setCity', value)
+  currentCity.value = { ...value }
   localStorage.setItem('currentCity', JSON.stringify(value))
 }
 </script>
@@ -77,11 +79,15 @@ const setCity = (value: object) => {
             :key="city.value"
             :label="city.label"
             :value="city"
-        /></el-select>
-        <span> 当前城市: {{ currentCity.name }}</span>
+          />
+        </el-select>
+        <span style="margin-left: 1rem"> 当前城市: {{ currentCity.name }}</span>
+        <div>
+          {{ currentWeather }}
+          <!-- <img src="https://i.i8tq.com/e_index/todayweather/00_d.png" alt="" /> -->
+        </div>
       </el-card>
     </el-col>
-    <!-- <el-col :span="12"> </el-col> -->
   </el-row>
 </template>
 
