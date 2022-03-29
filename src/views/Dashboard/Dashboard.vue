@@ -89,11 +89,17 @@ const setCity = (value: object) => {
         <div v-if="currentWeather?.weather">
           <svg-icon
             class="weather-icon"
-            :name="weatherKeyMaps.get(currentWeather?.weather[0].icon)"
+            :name="weatherKeyMaps.get(currentWeather.weather[0].icon)"
           ></svg-icon>
-          {{ currentWeather?.weather[0].description }}
+          {{ currentWeather.weather[0].description }}
         </div>
-        <div v-else>加载中...</div>
+        <div v-else>
+          <svg-icon
+            class="weather-icon"
+            name="icon_wushuju"
+          ></svg-icon>
+          加载中...
+        </div>
       </el-card>
     </el-col>
   </el-row>
