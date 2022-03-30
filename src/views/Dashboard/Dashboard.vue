@@ -90,14 +90,14 @@ const setCity = (value: object) => {
           <svg-icon
             class="weather-icon"
             :name="weatherKeyMaps.get(currentWeather.weather[0].icon)"
-          ></svg-icon>
+          />
           {{ currentWeather.weather[0].description }}
+          <p>体感温度: {{ currentWeather?.main.feels_like }} ℃</p>
+          <p>湿度: {{ currentWeather?.main.humidity }}</p>
+          <p>气压: {{ currentWeather?.main.pressure }}</p>
         </div>
         <div v-else>
-          <svg-icon
-            class="weather-icon"
-            name="icon_wushuju"
-          ></svg-icon>
+          <svg-icon class="weather-icon" name="icon_wushuju" />
           加载中...
         </div>
       </el-card>
@@ -106,15 +106,15 @@ const setCity = (value: object) => {
 </template>
 
 <style scoped lang="less">
-.e-charts {
-  width: 100%;
-  height: 24rem;
-}
+// .e-charts {
+//   width: 100%;
+//   height: 24rem;
+// }
 .weather-board {
   height: 24rem;
 }
 .weather-icon {
-  width: 4rem;
-  height: 4rem;
+  width: 8rem;
+  height: 8rem;
 }
 </style>
