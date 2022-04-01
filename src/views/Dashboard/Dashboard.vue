@@ -29,6 +29,8 @@ const getWeather = () => {
 }
 
 onMounted(() => {
+  console.log(import.meta.env.MODE)
+
   if (currentCity.value.name) {
     getWeather()
   } else {
