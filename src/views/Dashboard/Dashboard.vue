@@ -1,15 +1,31 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, reactive } from 'vue'
 import { getCityList, getCurrentWeather } from '@/api/dashboard'
 import debounce from 'lodash/debounce'
 import weatherKeyMaps from './components/weatherKeyMaps'
 import type { WeatherInfo, ListItem } from './types'
+import { TdtMap } from 'vue-tianditu'
 
 const currentCity = ref(JSON.parse(localStorage.getItem('currentCity') || '{}'))
 const selectedCity = ref<string>('')
 const selectLoading = ref(false)
 const cities = ref<ListItem[]>([])
 const currentWeather = ref<WeatherInfo>()
+
+const tiandituConfig = { v: '4.0', tk: import.meta.env.V_TIANDITU_TK }
+const tiandituState = reactive({
+  center: [currentCity.value.lon, currentCity.value.lat],
+  zoom: 10,
+  controls: [
+    // {
+    //   name: 'Copyright',
+    //   position: 'bottomleft',
+    //   id: 'vlite-tianditu',
+    //   content: '来源于天地图'
+    //   // bounds: [0, 0, 0, 0]
+    // }
+  ]
+})
 
 // 获取天气信息
 const getWeather = () => {
@@ -62,15 +78,16 @@ const getCities = async (query: string) => {
   })
 }
 
-const setCity = (value: object) => {
+const setCity = (value: any) => {
   currentCity.value = { ...value }
+  tiandituState.center = [value.lon, value.lat]
   getWeather()
   localStorage.setItem('currentCity', JSON.stringify(value))
 }
 </script>
 
 <template>
-  <el-row>
+  <el-row :gutter="20">
     <el-col :span="12">
       <el-card class="weather-board">
         <el-select
@@ -110,6 +127,16 @@ const setCity = (value: object) => {
         </div>
       </el-card>
     </el-col>
+    <el-col :span="12">
+      <div style="width: 100%; height: 100%">
+        <tdt-map
+          :center="tiandituState.center"
+          :zoom="tiandituState.zoom"
+          :controls="tiandituState.controls"
+          :loadConfig="tiandituConfig"
+        ></tdt-map>
+      </div>
+    </el-col>
   </el-row>
 </template>
 
@@ -120,5 +147,8 @@ const setCity = (value: object) => {
 .weather-icon {
   width: 8rem;
   height: 8rem;
+}
+:deep(.tdt-control-copyright.tdt-control > div:not(.tdt-control-copyright)) {
+  display: none;
 }
 </style>
