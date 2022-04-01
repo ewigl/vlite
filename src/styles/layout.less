@@ -1,6 +1,8 @@
 @import 'variables.less';
 
 .main-container {
+  padding: 1rem;
+  margin-top: @navbarHeight;
   min-height: 100%;
   transition: all @transitionDuration;
   margin-left: @sidebarCollapsedWidth;
@@ -12,23 +14,34 @@
 
 .sidebar-container {
   transition: all @transitionDuration;
-  width: @sidebarWidth;
-  background-color: @sidebarBackgroundColor;
+  width: @sidebarCollapsedWidth;
   height: 100%;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   overflow: hidden;
+  &.is-sidebar-opened {
+    width: @sidebarWidth;
+  }
 }
 
 .navbar {
+  transition: all @transitionDuration;
   height: @navbarHeight;
+  margin-left: @sidebarCollapsedWidth;
   overflow: hidden;
-  position: relative;
+  position: fixed;
+  right: 0;
+  top: 0;
+  left: 0;
   background: #fff;
   box-shadow: 0 1px 2px rgba(0, 21, 41, 0.08);
   line-height: @navbarHeight;
+  z-index: 9;
+  &.is-sidebar-opened {
+    margin-left: @sidebarWidth;
+  }
 }
 
 .navbar-hamburger {
@@ -39,12 +52,4 @@
   height: 3.2rem;
   margin-left: 1rem;
   margin-right: 1rem;
-}
-
-.page_wrapper {
-  padding: 1rem;
-}
-
-.scrollbar-wrapper {
-  overflow-x: hidden !important;
 }

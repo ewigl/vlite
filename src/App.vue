@@ -12,12 +12,6 @@ const langs = {
 }
 
 let locale = computed(() => {
-  // if (store.state.locale === 'zhCn') {
-  //   return zhCn
-  // }
-  // if (store.state.locale === 'en') {
-  //   return en
-  // }
   return langs[store.state.locale]
 })
 </script>

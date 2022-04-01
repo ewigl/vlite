@@ -1,0 +1,20 @@
+export default new Map([
+  ['01d', 'qingtianbaitian'],
+  ['01n', 'qingtianyewan'],
+  ['02d', 'qingzhuanduoyunbaitian'],
+  ['02n', 'qingzhuanduoyunyewan'],
+  ['03d', 'yintian'],
+  ['03n', 'yintian'],
+  ['04d', 'cloudy-01'],
+  ['04n', 'cloudy-01'],
+  ['09d', 'dayu'],
+  ['09n', 'dayu'],
+  ['10d', 'duoyunzhuanyubaitian'],
+  ['10n', 'duoyunzhuanyuyewan'],
+  ['11d', 'shandian'],
+  ['11n', 'shandian'],
+  ['13d', 'zhongxue'],
+  ['13n', 'zhongxue'],
+  ['50d', 'wu'],
+  ['50n', 'wu']
+])

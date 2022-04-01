@@ -9,12 +9,12 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     redirect: '/dashboard',
     name: 'Dashboard',
-    meta: { title: 'Dashboard', icon: 'dashboard' },
+    meta: { title: '首页', icon: 'dashboard' },
     children: [
       {
-        path: 'dashboard',
+        path: '/',
         name: 'Dashboard',
-        component: () => import('@views/Dashboard/Dashboard.vue'),
+        component: () => import('@views/Dashboard/Dashboard.vue')
       }
     ]
   },
@@ -22,25 +22,25 @@ const routes: Array<RouteRecordRaw> = [
     path: '/data',
     component: Layout,
     name: 'Data',
-    meta: { title: 'Data', icon: 'database' },
+    meta: { title: '数据', icon: 'database' },
     children: [
       {
         path: '/data/table',
         name: 'Table',
         component: Content,
-        meta: { title: 'Table', icon: 'table' },
+        meta: { title: '表格', icon: 'table' },
         children: [
           {
             path: '/data/table/list',
             name: 'TableList',
             component: () => import('@views/Data/TableList.vue'),
-            meta: { title: 'TableList', icon: 'table-list' }
+            meta: { title: '基础表格', icon: 'table' }
           },
           {
-            path: '/data/table/edit',
-            name: 'TableEdit',
+            path: '/data/table/todo',
+            name: 'ToDo',
             component: () => import('@views/Data/TableEdit.vue'),
-            meta: { title: 'TableEdit', icon: 'table-edit' }
+            meta: { title: 'ToDo', icon: 'table' }
           }
         ]
       },
@@ -48,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/data/form',
         name: 'Form',
         component: () => import('@views/Data/Form.vue'),
-        meta: { title: 'Form', icon: 'form' }
+        meta: { title: '表单', icon: 'table' }
       }
     ]
   },
@@ -56,19 +56,19 @@ const routes: Array<RouteRecordRaw> = [
     path: '/system',
     component: Layout,
     name: 'System',
-    meta: { title: 'System', icon: 'setting' },
+    meta: { title: '系统', icon: 'setting' },
     children: [
       {
         path: '/system',
         name: 'System',
         component: () => import('@views/System/System.vue'),
-        meta: { title: 'User', icon: 'user' }
+        meta: { title: '系统', icon: 'setting' }
       },
       {
         path: '/system/user',
         name: 'User',
         component: () => import('@views/System/User.vue'),
-        meta: { title: 'User', icon: 'user' }
+        meta: { title: '用户', icon: 'user' }
       }
     ]
   },

@@ -10,7 +10,8 @@ const store = useStore() // 初始化store
 <template>
   <Sidebar
     :class="{
-      'sidebar-container': true
+      'sidebar-container': true,
+      'is-sidebar-opened': store.state.isSidebarOpened
     }"
   ></Sidebar>
   <div
@@ -21,6 +22,7 @@ const store = useStore() // 初始化store
   >
     <Navbar></Navbar>
     <Content></Content>
+    <el-backtop />
   </div>
 </template>
 
