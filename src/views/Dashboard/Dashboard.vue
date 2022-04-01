@@ -11,7 +11,8 @@ const selectLoading = ref(false)
 const cities = ref<ListItem[]>([])
 const currentWeather = ref<WeatherInfo>()
 
-onMounted(() => {
+// 获取天气信息
+const getWeather = () => {
   getCurrentWeather({
     lat: currentCity.value.lat,
     lon: currentCity.value.lon,
@@ -20,12 +21,19 @@ onMounted(() => {
     lang: 'zh_cn'
   })
     .then((res) => {
-      console.log('currentWeather', res.data)
       currentWeather.value = res.data
     })
     .catch((err) => {
-      console.log('currentWeather err', err.response.data.message)
+      console.log('currentWeather err', err.response)
     })
+}
+
+onMounted(() => {
+  if (currentCity.value.name) {
+    getWeather()
+  } else {
+    console.log('No City Info')
+  }
 })
 
 interface ListItem {
@@ -59,6 +67,7 @@ const getCities = async (query: string) => {
 
 const setCity = (value: object) => {
   currentCity.value = { ...value }
+  getWeather()
   localStorage.setItem('currentCity', JSON.stringify(value))
 }
 </script>
@@ -85,7 +94,9 @@ const setCity = (value: object) => {
             :value="city"
           />
         </el-select>
-        <span style="margin-left: 1rem"> 当前城市: {{ currentCity.name }}</span>
+        <span style="margin-left: 1rem">
+          当前城市: {{ currentCity.name ? currentCity.name : '未选择' }}
+        </span>
         <div v-if="currentWeather?.weather">
           <svg-icon
             class="weather-icon"
@@ -98,7 +109,7 @@ const setCity = (value: object) => {
         </div>
         <div v-else>
           <svg-icon class="weather-icon" name="icon_wushuju" />
-          加载中...
+          {{ currentCity.name ? '加载中...' : '请选择城市' }}
         </div>
       </el-card>
     </el-col>
