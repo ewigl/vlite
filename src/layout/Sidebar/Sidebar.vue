@@ -19,10 +19,10 @@ const activedMenu = computed(() => router.currentRoute.value.path)
       router
       :default-active="activedMenu"
       :collapse="!store.state.isSidebarOpened"
-    >
-      <!-- background-color="#304156"
+      background-color="#304156"
       text-color="#bfcbd9"
-      active-text-color="#fff" -->
+      active-text-color="#fff"
+    >
       <MenuItem v-for="route in routes" :item="route" :base-path="route.path" />
     </el-menu>
   </el-scrollbar>
@@ -34,7 +34,7 @@ const activedMenu = computed(() => router.currentRoute.value.path)
   height: 100%;
   position: absolute;
   width: @sidebarWidth;
-  &--collapse{
+  &--collapse {
     width: @sidebarCollapsedWidth;
   }
 }

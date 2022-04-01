@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue'
 import { getCityList, getCurrentWeather } from '@/api/dashboard'
 import debounce from 'lodash/debounce'
 import weatherKeyMaps from './components/weatherKeyMaps'
-import type { WeatherInfo } from './types'
+import type { WeatherInfo, ListItem } from './types'
 
 const currentCity = ref(JSON.parse(localStorage.getItem('currentCity') || '{}'))
 const selectedCity = ref<string>('')
@@ -35,11 +35,6 @@ onMounted(() => {
     console.log('No City Info')
   }
 })
-
-interface ListItem {
-  value: string
-  label: string
-}
 
 const getCities = async (query: string) => {
   selectLoading.value = true
@@ -117,10 +112,6 @@ const setCity = (value: object) => {
 </template>
 
 <style scoped lang="less">
-// .e-charts {
-//   width: 100%;
-//   height: 24rem;
-// }
 .weather-board {
   height: 24rem;
 }

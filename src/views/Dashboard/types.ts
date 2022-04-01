@@ -13,6 +13,10 @@ type Main = {
   temp_max: number
 }
 
+export type ListItem = {
+  value: string
+  label: string
+}
 //#endregion
 
 export type WeatherInfo = {

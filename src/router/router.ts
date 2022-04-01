@@ -34,13 +34,13 @@ const routes: Array<RouteRecordRaw> = [
             path: '/data/table/list',
             name: 'TableList',
             component: () => import('@views/Data/TableList.vue'),
-            meta: { title: '基础表格', icon: 'table-list' }
+            meta: { title: '基础表格', icon: 'table' }
           },
           {
             path: '/data/table/todo',
             name: 'ToDo',
             component: () => import('@views/Data/TableEdit.vue'),
-            meta: { title: 'ToDo', icon: 'table-edit' }
+            meta: { title: 'ToDo', icon: 'table' }
           }
         ]
       },
@@ -48,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/data/form',
         name: 'Form',
         component: () => import('@views/Data/Form.vue'),
-        meta: { title: '表单', icon: 'form' }
+        meta: { title: '表单', icon: 'table' }
       }
     ]
   },
@@ -62,7 +62,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/system',
         name: 'System',
         component: () => import('@views/System/System.vue'),
-        meta: { title: '系统', icon: 'user' }
+        meta: { title: '系统', icon: 'setting' }
       },
       {
         path: '/system/user',
