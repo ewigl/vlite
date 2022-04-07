@@ -19,7 +19,7 @@ export const getCurrentWeather = (params?: any) =>
 // get Cities by lat and lon(reverse geocoding)
 export const getCityByLatLon = (params?: any) =>
   instance({
-    url: 'http://api.openweathermap.org/geo/1.0/reverse',
+    url: 'https://api.openweathermap.org/geo/1.0/reverse',
     method: 'get',
     params
   })
