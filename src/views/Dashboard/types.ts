@@ -12,14 +12,14 @@ type Main = {
   temp_min: number
   temp_max: number
 }
-
-export type ListItem = {
-  value: string
-  label: string
-}
 //#endregion
 
 export type WeatherInfo = {
   main: Main
   weather: Weather[]
+}
+
+export type LatLon = {
+  lat: number
+  lon: number
 }

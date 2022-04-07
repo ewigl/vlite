@@ -1,21 +1,17 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { getCityList, getCurrentWeather } from '@/api/dashboard'
-import debounce from 'lodash/debounce'
+import { getCurrentWeather, getCityByLatLon } from '@/api/dashboard'
+// import debounce from 'lodash/debounce'
 import weatherKeyMaps from './components/weatherKeyMaps'
-import type { WeatherInfo, ListItem } from './types'
+import type { WeatherInfo, LatLon } from './types'
 
 const currentCity = ref(JSON.parse(localStorage.getItem('currentCity') || '{}'))
-const selectedCity = ref<string>('')
-const selectLoading = ref(false)
-const cities = ref<ListItem[]>([])
 const currentWeather = ref<WeatherInfo>()
 
-// 获取天气信息
-const getWeather = () => {
+const getWeather = (latlon: LatLon) => {
   getCurrentWeather({
-    lat: currentCity.value.lat,
-    lon: currentCity.value.lon,
+    lat: latlon.lat,
+    lon: latlon.lon,
     appid: import.meta.env.V_WEATHER_APPID,
     units: 'metric',
     lang: 'zh_cn'
@@ -29,67 +25,60 @@ const getWeather = () => {
 }
 
 onMounted(() => {
-  if (currentCity.value.name) {
-    getWeather()
+  if (currentCity.value.lat) {
+    console.log('got currentCity')
+    getWeather({
+      lat: currentCity.value.lat,
+      lon: currentCity.value.lon
+    })
   } else {
-    console.log('No City Info')
+    console.log('no currentCity in LS')
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords
+        getCityByLatLon({
+          lat: latitude,
+          lon: longitude,
+          appid: import.meta.env.V_WEATHER_APPID
+        })
+          .then((res) => {
+            localStorage.setItem(
+              'currentCity',
+              JSON.stringify(
+                (currentCity.value = {
+                  lat: latitude,
+                  lon: longitude,
+                  name: res.data[0].local_names.zh
+                })
+              )
+            )
+          })
+          .catch((err) => {
+            console.log('getCityByLatLon err', err.response)
+          })
+        getWeather({
+          lat: latitude,
+          lon: longitude
+        })
+      },
+      (err) => {
+        console.log('getCurrentPosition err', err)
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 4000,
+        maximumAge: 0
+      }
+    )
   }
 })
-
-const getCities = async (query: string) => {
-  selectLoading.value = true
-  const res = await getCityList({
-    q: query,
-    appid: import.meta.env.V_WEATHER_APPID,
-    limit: 5
-  })
-  selectLoading.value = false
-  cities.value = res.data.map((item: any) => {
-    return {
-      label:
-        (item.local_names?.zh ? item.local_names?.zh : '') +
-        '_' +
-        item.name +
-        '_' +
-        item.state +
-        '_' +
-        item.country,
-      value: `${item.lat}_${item.lon}`,
-      ...item
-    }
-  })
-}
-
-const setCity = (value: any) => {
-  currentCity.value = { ...value }
-  getWeather()
-  localStorage.setItem('currentCity', JSON.stringify(value))
-}
 </script>
 
 <template>
   <el-row :gutter="20">
     <el-col :span="12">
       <el-card class="weather-board">
-        <el-select
-          v-model="selectedCity"
-          value-key="value"
-          filterable
-          placeholder="输入以搜索城市"
-          remote
-          :remote-method="debounce(getCities, 500)"
-          style="width: 50%"
-          :loading="selectLoading"
-          @change="setCity"
-        >
-          <el-option
-            v-for="city in cities"
-            :key="city.value"
-            :label="city.label"
-            :value="city"
-          />
-        </el-select>
-        <span style="margin-left: 1rem">
+        <span>
           当前城市: {{ currentCity.name ? currentCity.name : '未选择' }}
         </span>
         <div v-if="currentWeather?.weather">
@@ -104,7 +93,7 @@ const setCity = (value: any) => {
         </div>
         <div v-else>
           <svg-icon class="weather-icon" name="icon_wushuju" />
-          {{ currentCity.name ? '加载中...' : '请选择城市' }}
+          加载中...
         </div>
       </el-card>
     </el-col>
@@ -121,8 +110,5 @@ const setCity = (value: any) => {
 .weather-icon {
   width: 8rem;
   height: 8rem;
-}
-:deep(.tdt-control-copyright.tdt-control > div:not(.tdt-control-copyright)) {
-  display: none;
 }
 </style>
