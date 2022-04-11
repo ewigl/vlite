@@ -19,7 +19,8 @@ export type WeatherInfo = {
   weather: Weather[]
 }
 
-export type LatLon = {
+export type GeoInfo = {
   lat: number
   lon: number
+  name?: string
 }

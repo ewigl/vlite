@@ -3,19 +3,19 @@ import { onMounted, ref } from 'vue'
 import { getCurrentWeather, getCityByLatLon } from '@/api/dashboard'
 // import debounce from 'lodash/debounce'
 import weatherKeyMaps from './components/weatherKeyMaps'
-import type { WeatherInfo, LatLon } from './types'
+import type { WeatherInfo, GeoInfo } from './types'
 
 const currentCity = ref({
-  name: '',
   lat: 0,
-  lon: 0
+  lon: 0,
+  name: ''
 })
 const currentWeather = ref<WeatherInfo>()
 
-const getWeather = (latlon: LatLon) => {
+const getWeather = (geo: GeoInfo) => {
   getCurrentWeather({
-    lat: latlon.lat,
-    lon: latlon.lon,
+    lat: geo.lat,
+    lon: geo.lon,
     appid: import.meta.env.V_WEATHER_APPID,
     units: 'metric',
     lang: 'zh_cn'
