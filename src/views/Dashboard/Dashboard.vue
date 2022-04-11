@@ -5,7 +5,11 @@ import { getCurrentWeather, getCityByLatLon } from '@/api/dashboard'
 import weatherKeyMaps from './components/weatherKeyMaps'
 import type { WeatherInfo, LatLon } from './types'
 
-const currentCity = ref(JSON.parse(localStorage.getItem('currentCity') || '{}'))
+const currentCity = ref({
+  name: '',
+  lat: 0,
+  lon: 0
+})
 const currentWeather = ref<WeatherInfo>()
 
 const getWeather = (latlon: LatLon) => {
@@ -25,54 +29,53 @@ const getWeather = (latlon: LatLon) => {
 }
 
 onMounted(() => {
-  if (currentCity.value.lat) {
-    console.log('got currentCity')
-    getWeather({
-      lat: currentCity.value.lat,
-      lon: currentCity.value.lon
-    })
-  } else {
-    console.log('no currentCity in LS')
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords
-        getCityByLatLon({
-          lat: latitude,
-          lon: longitude,
-          appid: import.meta.env.V_WEATHER_APPID
-        })
-          .then((res) => {
-            localStorage.setItem(
-              'currentCity',
-              JSON.stringify(
-                (currentCity.value = {
-                  lat: latitude,
-                  lon: longitude,
-                  name: res.data[0].local_names.zh
-                    ? res.data[0].local_names.zh
-                    : res.data[0].name
-                })
-              )
-            )
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const { latitude, longitude } = position.coords
+      getCityByLatLon({
+        lat: latitude,
+        lon: longitude,
+        appid: import.meta.env.V_WEATHER_APPID
+      })
+        .then((res) => {
+          currentCity.value = {
+            name: res.data[0].local_names.zh
+              ? res.data[0].local_names.zh
+              : res.data[0].name,
+            lat: latitude,
+            lon: longitude
+          }
+          getWeather({
+            lat: latitude,
+            lon: longitude
           })
-          .catch((err) => {
-            console.log('getCityByLatLon err', err.response)
-          })
-        getWeather({
-          lat: latitude,
-          lon: longitude
         })
-      },
-      (err) => {
-        console.log('getCurrentPosition err', err)
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 4000,
-        maximumAge: 0
+        .catch((err) => {
+          console.log('getCityByLatLon err', err)
+        })
+      getWeather({
+        lat: latitude,
+        lon: longitude
+      })
+    },
+    (err) => {
+      console.log('getCurrentPosition error', err)
+      currentCity.value = {
+        name: '北京',
+        lat: 39.9042,
+        lon: 116.4074
       }
-    )
-  }
+      getWeather({
+        lat: 39.9042,
+        lon: 116.4074
+      })
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 4000,
+      maximumAge: 0
+    }
+  )
 })
 </script>
 
