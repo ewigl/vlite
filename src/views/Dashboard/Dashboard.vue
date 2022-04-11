@@ -49,6 +49,8 @@ onMounted(() => {
                   lat: latitude,
                   lon: longitude,
                   name: res.data[0].local_names.zh
+                    ? res.data[0].local_names.zh
+                    : res.data[0].name
                 })
               )
             )
@@ -98,7 +100,7 @@ onMounted(() => {
       </el-card>
     </el-col>
     <el-col :span="12">
-      <el-card class="weather-board"> 0 </el-card>
+      <el-card class="weather-board"> </el-card>
     </el-col>
   </el-row>
 </template>

@@ -27,28 +27,14 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/data/table',
         name: 'Table',
-        component: Content,
         meta: { title: '表格', icon: 'table' },
-        children: [
-          {
-            path: '/data/table/list',
-            name: 'TableList',
-            component: () => import('@views/Data/TableList.vue'),
-            meta: { title: '基础表格', icon: 'table' }
-          },
-          {
-            path: '/data/table/todo',
-            name: 'ToDo',
-            component: () => import('@views/Data/TableEdit.vue'),
-            meta: { title: 'ToDo', icon: 'table' }
-          }
-        ]
+        component: () => import('@views/Data/TableEdit.vue')
       },
       {
         path: '/data/form',
         name: 'Form',
         component: () => import('@views/Data/Form.vue'),
-        meta: { title: '表单', icon: 'table' }
+        meta: { title: '表单', icon: 'form' }
       }
     ]
   },
