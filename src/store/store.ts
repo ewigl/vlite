@@ -15,7 +15,7 @@ export const store = createStore<State>({
     locale: 'zhCn',
     count: 0,
     name: 'Vue',
-    isSidebarOpened: true
+    isSidebarOpened: false
   },
   getters: {
     count(state) {

@@ -8,6 +8,17 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers' //Elemen
 
 export default defineConfig({
   base: './', // 项目根目录
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor'
+          }
+        }
+      }
+    }
+  },
   envPrefix: 'V_', // 变量前缀
   server: {
     port: 8486 // 服务端口
