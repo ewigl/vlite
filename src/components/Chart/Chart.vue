@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang='ts'>
 import * as echarts from 'echarts'
 import { onMounted, toRefs, ref } from 'vue'
 
@@ -20,10 +20,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="echarts-container" ref="echartsContainer" />
+  <div class='echarts-container' ref='echartsContainer' />
 </template>
 
-<style scoped lang="less">
+<style scoped lang='less'>
 .echarts-container {
   width: 100%;
   height: 100%;
